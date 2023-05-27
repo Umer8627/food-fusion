@@ -32,29 +32,29 @@ class ShopRepo {
     return userModels;
   }
 
-  void getAllUsersByGeoPackage(
+  Stream<List<UserModel>> getAllUsersByGeoPackage(
       {required UserModel userModel, required int rad}) {
-    try {
-      final geo = GeoFlutterFire();
-      final firestore = FirebaseFirestore.instance;
-      GeoFirePoint center = geo.point(
-          latitude: userModel.geoFirePoint.latitude,
-          longitude: userModel.geoFirePoint.longitude);
-      log(center.toString());
+    final geo = GeoFlutterFire();
+    final firestore = FirebaseFirestore.instance;
+    GeoFirePoint center = geo.point(
+      latitude: userModel.geoFirePoint.latitude,
+      longitude: userModel.geoFirePoint.longitude,
+    );
+    log(center.toString());
 
-      var queryRef =
-          firestore.collection('users').where('type', isEqualTo: 'Shop Keeper');
-      var stream = geo.collection(collectionRef: queryRef).within(
+    var queryRef =
+        firestore.collection('users').where('type', isEqualTo: 'Shop Keeper');
+    var stream = geo.collection(collectionRef: queryRef).within(
           center: center,
           radius: rad.toDouble(),
           field: 'geoFirePoint',
-          strictMode: true);
-      stream.listen((event) {
-        log(event.toString());
-      });
-    } catch (e) {
-      log(e.toString());
-    }
+          strictMode: true,
+        );
+
+    return stream.map((event) => event.map((document) {
+          var user = UserModel.fromMap(document.data() as dynamic);
+          return user;
+        }).toList());
   }
 
   Stream<List<UserModel>> getAllRequest(UserModel userModel, int rad) {

@@ -14,6 +14,7 @@ class UserHomeView extends StatefulWidget {
 
 class _UserHomeViewState extends State<UserHomeView> {
   final radiusController = TextEditingController();
+  int radius = 50;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,15 +51,16 @@ class _UserHomeViewState extends State<UserHomeView> {
                   hintText: 'Enter Radius',
                 ),
                 onSubmitted: (value) {
-                  ShopRepo.instance.getAllUsersByGeoPackage(
-                      userModel: context.read<UserState>().userModel,
-                      rad: int.parse(value));
+                  setState(() {
+                    radius = int.parse(value);
+                  });
                 },
               ),
               const SizedBox(height: 10),
               StreamBuilder<List<UserModel>>(
-                stream: ShopRepo.instance
-                    .getAllRequest(context.watch<UserState>().userModel, 12),
+                stream: ShopRepo.instance.getAllUsersByGeoPackage(
+                    userModel: context.read<UserState>().userModel,
+                    rad: radius),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) return Text(snapshot.error.toString());
 
