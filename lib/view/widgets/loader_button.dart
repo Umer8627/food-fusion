@@ -49,7 +49,9 @@ class _LoaderButtonState extends State<LoaderButton> {
             onPressed: () async {
               setState(() => loading = true);
               await widget.onTap();
-              setState(() => loading = false);
+             if(mounted){
+               setState(() => loading = false);
+             }
             },
             child: Text(widget.btnText,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(

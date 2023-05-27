@@ -10,6 +10,7 @@ class ItemModel {
   String category;
   bool isDeleted;
   int createdAt;
+  int quantity;
   ItemModel({
     required this.itemId,
     required this.authId,
@@ -20,6 +21,7 @@ class ItemModel {
     required this.category,
     required this.isDeleted,
     required this.createdAt,
+    this.quantity=0
   });
 
   ItemModel copyWith({
@@ -32,6 +34,7 @@ class ItemModel {
     String? category,
     bool? isDeleted,
     int? createdAt,
+    int? quantity,
   }) {
     return ItemModel(
       itemId: itemId ?? this.itemId,
@@ -43,6 +46,7 @@ class ItemModel {
       category: category ?? this.category,
       isDeleted: isDeleted ?? this.isDeleted,
       createdAt: createdAt ?? this.createdAt,
+      quantity: quantity ?? this.quantity,
     );
   }
 
@@ -57,6 +61,7 @@ class ItemModel {
       'category': category,
       'isDeleted': isDeleted,
       'createdAt': createdAt,
+      'quantity': quantity,
     };
   }
 
@@ -70,45 +75,10 @@ class ItemModel {
       image: map['image'] as String,
       category: map['category'] as String,
       isDeleted: map['isDeleted'] as bool,
-      createdAt: map['createdAt'] as int,
+      createdAt: map['createdAt'] ??0,
+      quantity: map['quantity'] ??0,
     );
   }
 
-  String toJson() => json.encode(toMap());
 
-  factory ItemModel.fromJson(String source) =>
-      ItemModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() {
-    return 'ItemModel(itemId: $itemId, authId: $authId, name: $name, description: $description, price: $price, image: $image, category: $category, isDeleted: $isDeleted, createdAt: $createdAt)';
-  }
-
-  @override
-  bool operator ==(covariant ItemModel other) {
-    if (identical(this, other)) return true;
-
-    return other.itemId == itemId &&
-        other.authId == authId &&
-        other.name == name &&
-        other.description == description &&
-        other.price == price &&
-        other.image == image &&
-        other.category == category &&
-        other.isDeleted == isDeleted &&
-        other.createdAt == createdAt;
-  }
-
-  @override
-  int get hashCode {
-    return itemId.hashCode ^
-        authId.hashCode ^
-        name.hashCode ^
-        description.hashCode ^
-        price.hashCode ^
-        image.hashCode ^
-        category.hashCode ^
-        isDeleted.hashCode ^
-        createdAt.hashCode;
-  }
 }

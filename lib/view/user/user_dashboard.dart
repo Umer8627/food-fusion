@@ -13,7 +13,7 @@ import '../../constants/color_constant.dart';
 import '../profile/edit_profile.dart';
 
 import 'home/user_home_view.dart';
-import 'home/user_order_view.dart';
+import 'order/user_order_view.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
@@ -45,7 +45,7 @@ class _UserDashboardState extends State<UserDashboard> {
     List<Widget> pages = [
       const UserHomeView(),
       const UserOrdersView(),
-      Container(),
+      // Container(),
       const EditProfileView()
     ];
 
@@ -79,8 +79,8 @@ class _UserDashboardState extends State<UserDashboard> {
                 icon: Icon(FontAwesomeIcons.house, size: 30), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.box, size: 30), label: 'Orders'),
-            BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.shop), label: 'Shops'),
+            // BottomNavigationBarItem(
+            //     icon: Icon(FontAwesomeIcons.shop), label: 'Shops'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.user), label: 'Profile'),
           ],

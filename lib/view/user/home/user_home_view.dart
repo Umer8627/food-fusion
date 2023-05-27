@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:food_fusion/components/no_data_component.dart';
 import 'package:food_fusion/constants/color_constant.dart';
+import 'package:food_fusion/constants/theme_constant.dart';
 import 'package:food_fusion/models/user_model.dart';
 import 'package:food_fusion/repos/shop_repo.dart';
 import 'package:food_fusion/states/user_state.dart';
+import 'package:food_fusion/view/user/home/shop_products/shop_products_view.dart';
 import 'package:provider/provider.dart';
+
+import '../../../utills/snippets.dart';
 
 class UserHomeView extends StatefulWidget {
   const UserHomeView({super.key});
@@ -14,7 +19,12 @@ class UserHomeView extends StatefulWidget {
 
 class _UserHomeViewState extends State<UserHomeView> {
   final radiusController = TextEditingController();
-  int radius = 50;
+  int radius = 10;
+  @override
+  initState() {
+    super.initState();
+   radiusController.text=radius.toString();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,34 +66,77 @@ class _UserHomeViewState extends State<UserHomeView> {
                   });
                 },
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               StreamBuilder<List<UserModel>>(
                 stream: ShopRepo.instance.getAllUsersByGeoPackage(
-                    userModel: context.read<UserState>().userModel,
+                    userModel: context.watch<UserState>().userModel,
                     rad: radius),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) return Text(snapshot.error.toString());
-
-                  if (snapshot.hasData) {
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: snapshot.data?.length,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            child: ListTile(
-                              title: Text(snapshot.data?[index].name ?? ''),
-                              subtitle:
-                                  Text(snapshot.data?[index].address ?? ''),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                  if (!snapshot.hasData) {
+                    return const NoDataComponent();
                   }
+                  return snapshot.data!.isEmpty
+                      ? const Expanded(child: NoDataComponent())
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: snapshot.data?.length,
+                            itemBuilder: (context, index) {
+                              UserModel? model = snapshot.data![index];
+                              return Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Card(
+                                  color: backgroundColor,
+                                  elevation: 10,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      push(context,
+                                          ShopProductsView(userModel: model));
+                                    },
+                                    child: ListTile(
+                                      leading: CircleAvatar(
+                                        radius: 21,
+                                        backgroundImage: NetworkImage(
+                                          model.imageUrl,
+                                        ),
+                                      ),
+                                      title: Text(
+                                        model.shopName ?? '',
+                                        style: CustomFont.regularText.copyWith(
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      subtitle: Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.location_on,
+                                            color: Colors.grey,
+                                            size: 16,
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Flexible(
+                                            child: Text(
+                                              model.address,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: CustomFont.lightText
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.grey),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
                 },
               )
             ],
