@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_fusion/view/rider/rider_dashboard.dart';
-import 'package:food_fusion/view/shopkeeper/shop_keeper.dart';
+import 'package:food_fusion/view/shopkeeper/shop_keeper_dashboard.dart';
 import 'package:food_fusion/view/user/user_dashboard.dart';
-
 import '../../constants/color_constant.dart';
 import '../../repos/auth_repo.dart';
 import '../../utills/local_storage.dart';
