@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_fusion/constants/theme_constant.dart';
 import 'package:food_fusion/states/map_state.dart';
 import 'package:food_fusion/states/register_state.dart';
+import 'package:food_fusion/states/user_state.dart';
 import 'package:food_fusion/utills/local_storage.dart';
 import 'package:food_fusion/view/auth/login_view.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => RegisterState()),
+        ChangeNotifierProvider(create: (context) => UserState()),
         ChangeNotifierProvider(create: (context) => MapState()),
       ],
       child: const MyApp(),
