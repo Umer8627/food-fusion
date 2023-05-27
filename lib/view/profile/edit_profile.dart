@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_fusion/states/user_state.dart';
-import 'package:food_fusion/view/widgets/custom_textfield.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../utills/snippets.dart';
@@ -13,6 +12,7 @@ import '../../models/user_model.dart';
 import '../../repos/user_repo.dart';
 import '../../utills/local_storage.dart';
 import '../auth/login_view.dart';
+import '../widgets/custom_textfield.dart';
 import '../widgets/loader_button.dart';
 
 class EditProfileView extends StatefulWidget {
@@ -126,6 +126,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                           controller: cnicController,
                           hintText: "CNIC",
                           labelText: "CNIC",
+                          inputType: TextInputType.number,
                         ),
                         const SizedBox(height: 15),
                         CustomTextField(
@@ -133,6 +134,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                           controller: phoneNoController,
                           hintText: "Phone No",
                           labelText: "Phone No",
+                          inputType: TextInputType.number,
                         ),
                         const SizedBox(height: 50),
                         LoaderButton(

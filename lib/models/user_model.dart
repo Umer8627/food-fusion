@@ -13,7 +13,7 @@ class UserModel {
   int createdAt;
   bool isApproved;
   bool isBlocked;
-
+  String? shopName;
   UserModel({
     required this.uid,
     required this.name,
@@ -27,6 +27,7 @@ class UserModel {
     this.createdAt = 0,
     this.isApproved = false,
     this.isBlocked = false,
+    this.shopName = '',
   });
 
   UserModel copyWith({
@@ -42,6 +43,7 @@ class UserModel {
     int? createdAt,
     bool? isApproved,
     bool? isBlocked,
+    String? shopName,
   }) {
     return UserModel(
       uid: uid ?? this.uid,
@@ -56,6 +58,7 @@ class UserModel {
       createdAt: createdAt ?? this.createdAt,
       isApproved: isApproved ?? this.isApproved,
       isBlocked: isBlocked ?? this.isBlocked,
+      shopName: shopName ?? this.shopName,
     );
   }
 
@@ -73,6 +76,7 @@ class UserModel {
       'createdAt': createdAt,
       'isApproved': isApproved,
       'isBlocked': isBlocked,
+      'shopName': shopName,
     };
   }
 
@@ -93,6 +97,7 @@ class UserModel {
       createdAt: map['createdAt'] ?? 0,
       isApproved: map['isApproved'] ?? false,
       isBlocked: map['isBlocked'] ?? false,
+      shopName: map['shopName'] ?? '',
     );
   }
 }
