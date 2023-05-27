@@ -31,6 +31,7 @@ class _RegisterViewState extends State<RegisterView> {
   final cnicController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final shopNameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -79,10 +80,14 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                       const SizedBox(height: 22),
                       CustomTextField(
-                        labelText: 'Address',
+                        labelText: registerState.selectedType == 'Shop Keeper'
+                            ? 'Shop Address'
+                            : 'Address',
                         prefixIcon: Icons.location_city,
                         controller: addressController,
-                        hintText: "Address",
+                        hintText: registerState.selectedType == 'Shop Keeper'
+                            ? 'Shop Address'
+                            : 'Address',
                         validator: mandatoryValidator,
                         onTap: () async {
                           String? selectedAddress = await Navigator.push(
@@ -118,6 +123,17 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                       const SizedBox(height: 22),
                       UsertypesDropdown(),
+                      const SizedBox(height: 22),
+                      registerState.selectedType == 'Shop Keeper'
+                          ? CustomTextField(
+                              maxLine: 1,
+                              labelText: 'Shop Name',
+                              prefixIcon: Icons.store,
+                              controller: shopNameController,
+                              hintText: "Shop Name",
+                              validator: mandatoryValidator,
+                            )
+                          : Container(),
                       const SizedBox(height: 32),
                       LoaderButton(
                         btnText: 'Register',
@@ -142,6 +158,12 @@ class _RegisterViewState extends State<RegisterView> {
                                     info: false);
                                 return;
                               }
+                              if (registerState.selectedType == 'Shop Keeper' &&
+                                  shopNameController.text.isEmpty) {
+                                snack(context, 'Please Enter Shop Name',
+                                    info: false);
+                                return;
+                              }
 
                               UserModel userModel = UserModel(
                                 uid: '',
@@ -161,6 +183,10 @@ class _RegisterViewState extends State<RegisterView> {
                                   mapState.latLng!.latitude,
                                   mapState.latLng!.longitude,
                                 ),
+                                shopName:
+                                    registerState.selectedType == 'Shop Keeper'
+                                        ? shopNameController.text
+                                        : '',
                               );
 
                               await AuthRepo.instance.createUser(

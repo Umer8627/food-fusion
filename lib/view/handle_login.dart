@@ -25,8 +25,10 @@ class _HandleLoginState extends State<HandleLogin> {
             return const UserDashboard();
           } else if (snapshot.data == 'Rider') {
             return const RiderDashboard();
-          } else {
+          } else if (snapshot.data == 'Shop Keeper') {
             return const ShopKeeperDashboard();
+          } else {
+            return const LoginView();
           }
         });
   }

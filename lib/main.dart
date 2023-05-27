@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:food_fusion/constants/theme_constant.dart';
 import 'package:food_fusion/states/map_state.dart';
 import 'package:food_fusion/states/register_state.dart';
+import 'package:food_fusion/states/shop_state.dart';
+import 'package:food_fusion/states/user_state.dart';
 import 'package:food_fusion/utills/local_storage.dart';
-import 'package:food_fusion/view/auth/login_view.dart';
+import 'package:food_fusion/view/splash/splash_view.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -19,6 +21,8 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => RegisterState()),
         ChangeNotifierProvider(create: (context) => MapState()),
+        ChangeNotifierProvider(create: (context) => UserState()),
+        ChangeNotifierProvider(create: (context) => ShopState()),
       ],
       child: const MyApp(),
     ),
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: getTheme(),
-      home: const LoginView(),
+      home: const SplashView(),
     );
   }
 }

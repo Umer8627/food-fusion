@@ -15,10 +15,12 @@ class AuthRepo {
   static const String storagePath = 'profileImages';
 
   final firestore = FirebaseFirestore.instance;
-  Future<void> createUser(
-      {required UserModel userModel,
-      required String password,
-      required File img}) async {
+  Future<void> createUser({
+    required UserModel userModel,
+    required String password,
+    required File img,
+    String? shopName,
+  }) async {
     await firebaseAuth.createUserWithEmailAndPassword(
         email: userModel.email, password: password);
     String profileImg =
