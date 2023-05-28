@@ -9,9 +9,5 @@ class ShopState extends ChangeNotifier {
 
   List<UserModel> get shopList => _shopList;
 
-  setShopList({required int value, required UserModel userModel}) async {
-    _shopList = await ShopRepo.instance.getAllShops(userModel, value);
-    log(_shopList.length.toString());
-    notifyListeners();
-  }
+ 
 }

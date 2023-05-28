@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_fusion/view/user/order/user_pending_order_tab.dart';
 
 import '../../../constants/color_constant.dart';
 import '../../../utills/snippets.dart';
@@ -49,7 +50,7 @@ class _UserOrdersViewState extends State<UserOrdersView>
                   tabs: const [
                     Tab(
                         child: Text(
-                      'Accepted',
+                      'Pending',
                       style: TextStyle(fontWeight: FontWeight.w500),
                     )),
                     Tab(
@@ -76,7 +77,7 @@ class _UserOrdersViewState extends State<UserOrdersView>
                   controller: tabController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    Container(),
+                    const UserPendingOrderTab(),
                     Container(),
                     Container(),
                     Container(),

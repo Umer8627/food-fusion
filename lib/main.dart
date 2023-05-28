@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_fusion/constants/theme_constant.dart';
+import 'package:food_fusion/states/cart_state.dart';
 import 'package:food_fusion/states/map_state.dart';
 import 'package:food_fusion/states/register_state.dart';
 import 'package:food_fusion/states/shop_state.dart';
@@ -24,6 +25,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => MapState()),
         ChangeNotifierProvider(create: (context) => UserState()),
         ChangeNotifierProvider(create: (context) => ShopState()),
+         ChangeNotifierProvider(create: (context) => CartState()),
       ],
       child: const MyApp(),
     ),
@@ -33,11 +35,11 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: getTheme(),
       home: const SplashView(),
     );
