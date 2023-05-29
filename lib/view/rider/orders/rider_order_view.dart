@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:food_fusion/view/user/order/user_accepted_order_tab.dart';
-import 'package:food_fusion/view/user/order/user_arrived_order_tab.dart';
-import 'package:food_fusion/view/user/order/user_assigned_order_tab.dart';
-import 'package:food_fusion/view/user/order/user_delivered_order_tab.dart';
-import 'package:food_fusion/view/user/order/user_pending_order_tab.dart';
-import 'package:food_fusion/view/user/order/user_rejected_order_tab.dart';
-import 'package:food_fusion/view/user/user_dashboard.dart';
+import 'package:food_fusion/view/rider/orders/rider_arrived_order_tab.dart';
+import 'package:food_fusion/view/rider/orders/rider_assigned_order_tab.dart';
+import 'package:food_fusion/view/rider/orders/rider_delivered_order_tab.dart';
+import 'package:food_fusion/view/rider/orders/rider_picked_order_tab.dart';
 
 import '../../../constants/color_constant.dart';
 import '../../../utills/snippets.dart';
 
-class UserOrdersView extends StatefulWidget {
-  const UserOrdersView({super.key});
+class RiderOrderView extends StatefulWidget {
+  const RiderOrderView({super.key});
 
   @override
-  State<UserOrdersView> createState() => _UserOrdersViewState();
+  State<RiderOrderView> createState() => _RiderOrderViewState();
 }
 
-class _UserOrdersViewState extends State<UserOrdersView>
+class _RiderOrderViewState extends State<RiderOrderView>
     with SingleTickerProviderStateMixin {
   late final TabController tabController;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 7, vsync: this, initialIndex: 0);
+    tabController = TabController(length: 4, vsync: this, initialIndex: 0);
   }
 
   @override
@@ -55,16 +52,6 @@ class _UserOrdersViewState extends State<UserOrdersView>
                   tabs: const [
                     Tab(
                         child: Text(
-                      'Pending',
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    )),
-                    Tab(
-                        child: Text(
-                      'Accepted',
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    )),
-                    Tab(
-                        child: Text(
                       'Assigned',
                       style: TextStyle(fontWeight: FontWeight.w500),
                     )),
@@ -83,11 +70,6 @@ class _UserOrdersViewState extends State<UserOrdersView>
                       'Delivered',
                       style: TextStyle(fontWeight: FontWeight.w500),
                     )),
-                    Tab(
-                        child: Text(
-                      'Rejected',
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    )),
                   ],
                 ),
               ),
@@ -96,14 +78,11 @@ class _UserOrdersViewState extends State<UserOrdersView>
                 child: TabBarView(
                   controller: tabController,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: const [
-                    UserPendingOrderTab(),
-                    UserAcceptedOrderTab(),
-                    UserOrderAssignedTab(),
-                    UserArrivedOrderTab(),
-                    UserArrivedOrderTab(),
-                    UserDeliveredOrderTab(),
-                    UserRejectedOrderTab(),
+                  children:const [
+                    RiderOrderAssignedTab(),
+                    RiderPickedOrderTab(),
+                    RiderArrivedOrderTab(),
+                    RiderDeliveredOrderTab(),
                   ],
                 ),
               )

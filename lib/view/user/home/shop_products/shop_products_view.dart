@@ -23,7 +23,7 @@ class _ShopProductsViewState extends State<ShopProductsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar: CustomAppBar(
+      appBar:const  CustomAppBar(
         title: 'Shop Products',
         showLeading: true,
       ),

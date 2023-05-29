@@ -195,6 +195,10 @@ class _RegisterViewState extends State<RegisterView> {
                                 img: registerState.selectImage!,
                               );
                               if (!mounted) return;
+                              registerState.selectImageFile(null);
+                              registerState.selectType(null);
+                              mapState.setAddress(null);
+
                               push(context, const LoginView());
                             }
                           } catch (e) {

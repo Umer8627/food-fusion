@@ -26,7 +26,8 @@ class RequestRepo {
     return requests;
   }
 
-  Future<void> addRequest(RequestModel requestModel) async {
+  Future<void> addRequest(
+      {required RequestModel requestModel, required String orderId}) async {
     String id = DateTime.now().toIso8601String();
     await firestore
         .collection('requests')
@@ -63,7 +64,6 @@ class RequestRepo {
     return firestore
         .collection('requests')
         // .orderBy('isApproved', descending: false)
-        .where('requestType', isEqualTo: userModel.type)
         .snapshots()
         .distinct()
         .map((event) => event.docs
@@ -79,58 +79,19 @@ class RequestRepo {
             }).toList());
   }
 
-  Stream<List<RequestModel>> getAllRealEstateRequest() {
+  Stream<RequestModel?> checkIfOrderRequestExist({required String orderId}) {
     return firestore
         .collection('requests')
-        .where('requestType', isEqualTo: 'Real Estate')
+        .where('orderId', isEqualTo: orderId)
         .snapshots()
-        .map((event) =>
-            event.docs.map((e) => RequestModel.fromMap(e.data())).toList());
-  }
-
-  Stream<List<RequestModel>> getAllPlumberRequest() {
-    return firestore
-        .collection('requests')
-        .where('requestType', isEqualTo: 'Plumber')
-        .snapshots()
-        .map((event) =>
-            event.docs.map((e) => RequestModel.fromMap(e.data())).toList());
-  }
-
-  Stream<List<RequestModel>> getAllElectricionRequest() {
-    return firestore
-        .collection('requests')
-        .where('requestType', isEqualTo: 'Electrician')
-        .snapshots()
-        .map((event) =>
-            event.docs.map((e) => RequestModel.fromMap(e.data())).toList());
-  }
-
-  Stream<List<RequestModel>> getAllRenovationRequest() {
-    return firestore
-        .collection('requests')
-        .where('requestType', isEqualTo: 'Renovation')
-        .snapshots()
-        .map((event) =>
-            event.docs.map((e) => RequestModel.fromMap(e.data())).toList());
-  }
-
-  Stream<List<RequestModel>> getAllBuilderRequest() {
-    return firestore
-        .collection('requests')
-        .where('requestType', isEqualTo: 'Builder')
-        .snapshots()
-        .map((event) =>
-            event.docs.map((e) => RequestModel.fromMap(e.data())).toList());
-  }
-
-  Stream<List<RequestModel>> getAllArtitectureRequest() {
-    return firestore
-        .collection('requests')
-        .where('requestType', isEqualTo: 'Artitect')
-        .snapshots()
-        .map((event) =>
-            event.docs.map((e) => RequestModel.fromMap(e.data())).toList());
+        .map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        final data = snapshot.docs.first.data();
+        return RequestModel.fromMap(data);
+      } else {
+        return null;
+      }
+    });
   }
 
   double calculateDistance(LatLng center, LatLng request) {
@@ -152,9 +113,9 @@ class RequestRepo {
   }
 
   Future<void> declineRequest(
-      {required RequestModel model, required String handymanId}) async {
+      {required RequestModel model, required String riderId}) async {
     List<String> list = model.ignored;
-    list.add(handymanId);
+    list.add(riderId);
     await firestore
         .collection('requests')
         .doc(model.docId)

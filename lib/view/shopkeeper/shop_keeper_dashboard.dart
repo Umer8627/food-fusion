@@ -14,7 +14,7 @@ import '../../../states/user_state.dart';
 import '../../components/dialog_widget.dart';
 import '../../constants/color_constant.dart';
 import '../profile/edit_profile.dart';
-import 'home/home_view.dart';
+import 'orders/shop_order_view.dart';
 import 'menu/menu_view.dart';
 
 class ShopKeeperDashboard extends StatefulWidget {
@@ -77,7 +77,7 @@ class _ShopKeeperDashboardState extends State<ShopKeeperDashboard> {
           },
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.house, size: 30), label: 'Home'),
+                icon: Icon(FontAwesomeIcons.box, size: 30), label: 'Order'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.cubesStacked), label: 'Menu'),
             BottomNavigationBarItem(

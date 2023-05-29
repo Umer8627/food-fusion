@@ -47,11 +47,13 @@ class _LoaderButtonState extends State<LoaderButton> {
               minimumSize: Size(MediaQuery.of(context).size.width, 45),
             ),
             onPressed: () async {
-              setState(() => loading = true);
+              if (mounted) {
+                setState(() => loading = true);
+              }
               await widget.onTap();
-             if(mounted){
-               setState(() => loading = false);
-             }
+              if (mounted) {
+                setState(() => loading = false);
+              }
             },
             child: Text(widget.btnText,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(

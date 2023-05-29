@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:food_fusion/view/shopkeeper/orders/shop_order_arrived_tab.dart';
+import 'package:food_fusion/view/shopkeeper/orders/shop_order_assigned_tab.dart';
+import 'package:food_fusion/view/shopkeeper/orders/shop_order_delivered_tab.dart';
+import 'package:food_fusion/view/shopkeeper/orders/shop_order_pending_tab.dart';
+import 'package:food_fusion/view/shopkeeper/orders/show_order_accepted_tab.dart';
 
 import '../../../constants/color_constant.dart';
 import '../../../utills/snippets.dart';
+import 'shop_order_picked_tab.dart';
 
 class ShopHomeview extends StatefulWidget {
   const ShopHomeview({super.key});
@@ -17,7 +23,7 @@ class _ShopHomeviewState extends State<ShopHomeview>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 4, vsync: this, initialIndex: 0);
+    tabController = TabController(length: 6, vsync: this, initialIndex: 0);
   }
 
   @override
@@ -36,17 +42,21 @@ class _ShopHomeviewState extends State<ShopHomeview>
                 // margin: EdgeInsets.zero,
                 shape: getRoundShape(val: 10),
                 child: TabBar(
+                  isScrollable: true,
                   controller: tabController,
-                  labelPadding: const EdgeInsets.all(0),
                   labelColor: Colors.white,
                   onTap: (val) => setState(() {}),
-                  indicatorColor: secondaryColor,
-                  splashBorderRadius: getRoundBorder(val: 10),
+                  indicatorColor: Theme.of(context).primaryColor,
                   unselectedLabelColor: Colors.black,
                   indicator: BoxDecoration(
-                      borderRadius: getRoundBorder(val: 10),
+                      borderRadius: getRoundBorder(val: 4),
                       color: secondaryColor),
                   tabs: const [
+                    Tab(
+                        child: Text(
+                      'Pending',
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    )),
                     Tab(
                         child: Text(
                       'Accepted',
@@ -54,19 +64,27 @@ class _ShopHomeviewState extends State<ShopHomeview>
                     )),
                     Tab(
                         child: Text(
-                      'In-Making',
+                      'Assigned',
                       style: TextStyle(fontWeight: FontWeight.w500),
                     )),
                     Tab(
-                        child: Text(
-                      'Picked',
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    )),
+                      child: Text(
+                        'Picked',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
                     Tab(
-                        child: Text(
-                      'Arrived',
-                      style: TextStyle(fontWeight: FontWeight.w500),
-                    )),
+                      child: Text(
+                        'Arrived',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    Tab(
+                      child: Text(
+                        'Delivered',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -75,11 +93,13 @@ class _ShopHomeviewState extends State<ShopHomeview>
                 child: TabBarView(
                   controller: tabController,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    Container(),
-                    Container(),
-                    Container(),
-                    Container(),
+                  children: const [
+                    ShopOrderPendingTab(),
+                    ShowOrderAcceptedTab(),
+                    AssignedOrderTabView(),
+                    ShopOrderPickedTab(),
+                    ShopOrderArrivedTab(),
+                    ShopOrderDeliveredTab(),
                   ],
                 ),
               )
