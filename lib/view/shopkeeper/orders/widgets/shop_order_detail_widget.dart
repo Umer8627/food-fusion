@@ -3,22 +3,27 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_fusion/constants/color_constant.dart';
 import 'package:food_fusion/enums/order_enums.dart';
 import 'package:food_fusion/models/order_model.dart';
+import 'package:food_fusion/models/request_model.dart';
 import 'package:food_fusion/models/user_model.dart';
 import 'package:food_fusion/repos/order_repo.dart';
+import 'package:food_fusion/repos/request_repo.dart';
+import 'package:food_fusion/utills/snippets.dart';
+import 'package:food_fusion/view/shopkeeper/request/shop_offer_view.dart';
 import 'package:food_fusion/view/widgets/loader_button.dart';
 import 'package:food_fusion/view/widgets/show_status_widget.dart';
 import '../../../../repos/user_repo.dart';
+import '../../request/add_request_popup.dart';
 
-class OrderDetailsWidget extends StatefulWidget {
+class ShopOrderDetailView extends StatefulWidget {
   final OrderModel order;
- 
-  const OrderDetailsWidget({super.key, required this.order});
+
+  const ShopOrderDetailView({super.key, required this.order});
 
   @override
-  State<OrderDetailsWidget> createState() => _OrderDetailsWidgetState();
+  State<ShopOrderDetailView> createState() => _ShopOrderDetailViewState();
 }
 
-class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
+class _ShopOrderDetailViewState extends State<ShopOrderDetailView> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -47,7 +52,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
           ),
           const SizedBox(height: 10),
           FutureBuilder<UserModel>(
-              future: UserRepo.instance.getUserById(widget.order.shopId),
+              future: UserRepo.instance.getUserById(widget.order.userId),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const SizedBox(height: 20);
@@ -58,10 +63,10 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     children: [
                       Row(
                         children: [
-                          const Icon(FontAwesomeIcons.shop, size: 16),
+                          const Icon(FontAwesomeIcons.user, size: 16),
                           const SizedBox(width: 16),
                           Text(
-                            snapshot.data?.shopName ?? " ",
+                            snapshot.data?.name ?? " ",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -144,7 +149,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                   ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
             ),
           ),
-          const SizedBox(height: 8),
+          // const SizedBox(height: 8),
           ListView.builder(
             shrinkWrap: true,
             itemCount: widget.order.items?.length,
@@ -212,7 +217,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -232,7 +237,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     ),
                   ],
                 ),
-             widget.order.orderEnum.index == OrderEnum.delivered.index
+                  widget.order.orderEnum.index == OrderEnum.delivered.index
                     ?    const SizedBox(height: 5):const SizedBox.shrink(),
                 widget.order.orderEnum.index == OrderEnum.delivered.index
                     ? Row(
@@ -260,21 +265,89 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
               ],
             ),
           ),
-          if (widget.order.orderEnum == OrderEnum.arrived)
+
+          if (widget.order.orderEnum == OrderEnum.pending)
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: LoaderButton(
-                borderSide: Colors.green,
-                color: Colors.white,
-                textColor: Colors.green,
-                btnText: "Change Status To Delievered",
-                onTap: () async {
-                  await OrderRepo.instance.deliveredOrder(
-                      orderId: widget.order.orderId,
-                      orderEnum: OrderEnum.delivered);
-                },
+              child: Row(
+                children: [
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: LoaderButton(
+                          borderSide: Colors.red,
+                          color: Colors.white,
+                          textColor: Colors.red,
+                          btnText: "Reject",
+                          onTap: () async {
+                            await OrderRepo.instance.rejectOrder(
+                                orderId: widget.order.orderId,
+                                orderEnum: OrderEnum.rejected);
+                          },
+                        )),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: LoaderButton(
+                            color: Colors.green,
+                            btnText: "Accept",
+                            onTap: () async {
+                              await OrderRepo.instance.acceptOrder(
+                                orderId: widget.order.orderId,
+                                orderEnum: OrderEnum.accepted,
+                              );
+                            })),
+                  ),
+                  const SizedBox(height: 10),
+                ],
               ),
             ),
+
+          if (widget.order.orderEnum == OrderEnum.accepted)
+            StreamBuilder<RequestModel?>(
+                stream: RequestRepo.instance
+                    .checkIfOrderRequestExist(orderId: widget.order.orderId),
+                builder: (_, snapshot) {
+                  if (snapshot.hasData && snapshot.data != null) {
+                    final RequestModel requestModel = snapshot.data!;
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: LoaderButton(
+                              color: Colors.green,
+                              btnText: "View Your Request Offers",
+                              onTap: () async {
+                                push(context, ShopOffersListView(orderModel: widget.order,requestModel: requestModel,));
+                              }),
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: LoaderButton(
+                              color: Colors.green,
+                              btnText: "Send Request To Riders ",
+                              onTap: () async {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => AddRequestPopup(
+                                          orderModel: widget.order,
+                                        ));
+                              }),
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    );
+                  }
+                }),
         ],
       ),
     );

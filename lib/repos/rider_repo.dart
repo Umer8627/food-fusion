@@ -1,16 +1,12 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:food_fusion/models/user_model.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 
+import '../models/user_model.dart';
 
-class ShopRepo {
-  static final instance = ShopRepo();
-  final firestore = FirebaseFirestore.instance;
+class RiderRepo{
+  static final instance = RiderRepo();
 
-
-
-  Stream<List<UserModel>> getAllUsersByGeoPackage(
+    Stream<List<UserModel>> getAllUsersByGeoPackage(
       {required UserModel userModel, required int rad}) {
     final geo = GeoFlutterFire();
     final firestore = FirebaseFirestore.instance;
@@ -20,7 +16,7 @@ class ShopRepo {
     );
 
     var queryRef =
-        firestore.collection('users').where('type', isEqualTo: 'Shop Keeper');
+        firestore.collection('users').where('type', isEqualTo: 'Rider');
     var stream = geo.collection(collectionRef: queryRef).within(
           center: center,
           radius: rad.toDouble(),
@@ -33,7 +29,4 @@ class ShopRepo {
           return user;
         }).toList());
   }
-
-
-
 }

@@ -9,16 +9,16 @@ import 'package:food_fusion/view/widgets/loader_button.dart';
 import 'package:food_fusion/view/widgets/show_status_widget.dart';
 import '../../../../repos/user_repo.dart';
 
-class OrderDetailsWidget extends StatefulWidget {
+class RiderOrderDetailWidget extends StatefulWidget {
   final OrderModel order;
- 
-  const OrderDetailsWidget({super.key, required this.order});
+
+  const RiderOrderDetailWidget({super.key, required this.order});
 
   @override
-  State<OrderDetailsWidget> createState() => _OrderDetailsWidgetState();
+  State<RiderOrderDetailWidget> createState() => _RiderOrderDetailWidgetState();
 }
 
-class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
+class _RiderOrderDetailWidgetState extends State<RiderOrderDetailWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -47,7 +47,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
           ),
           const SizedBox(height: 10),
           FutureBuilder<UserModel>(
-              future: UserRepo.instance.getUserById(widget.order.shopId),
+              future: UserRepo.instance.getUserById(widget.order.userId),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const SizedBox(height: 20);
@@ -58,10 +58,10 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     children: [
                       Row(
                         children: [
-                          const Icon(FontAwesomeIcons.shop, size: 16),
+                          const Icon(FontAwesomeIcons.user, size: 16),
                           const SizedBox(width: 16),
                           Text(
-                            snapshot.data?.shopName ?? " ",
+                            snapshot.data?.name ?? " ",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall
@@ -104,36 +104,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     text: widget.order.orderEnum.getName())),
           ),
           const SizedBox(height: 8),
-          if (widget.order.riderId.isNotEmpty)
-            FutureBuilder<UserModel>(
-                future: UserRepo.instance.getUserById(widget.order.riderId),
-                builder: (_, snap) {
-                  if (snap.connectionState == ConnectionState.waiting) {
-                    return const SizedBox(height: 10);
-                  }
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(snap.data?.imageUrl ?? ''),
-                          radius: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Rider: ${snap.data?.name ?? ''}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-          widget.order.riderId.isNotEmpty
-              ? const SizedBox(height: 16)
-              : const SizedBox.shrink(),
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
@@ -144,7 +115,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                   ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
             ),
           ),
-          const SizedBox(height: 8),
+          // const SizedBox(height: 8),
           ListView.builder(
             shrinkWrap: true,
             itemCount: widget.order.items?.length,
@@ -212,7 +183,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -232,7 +203,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     ),
                   ],
                 ),
-             widget.order.orderEnum.index == OrderEnum.delivered.index
+                  widget.order.orderEnum.index == OrderEnum.delivered.index
                     ?    const SizedBox(height: 5):const SizedBox.shrink(),
                 widget.order.orderEnum.index == OrderEnum.delivered.index
                     ? Row(
@@ -259,20 +230,49 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     :const SizedBox.shrink(),
               ],
             ),
-          ),
-          if (widget.order.orderEnum == OrderEnum.arrived)
+          ), 
+
+          if (widget.order.orderEnum == OrderEnum.assigned)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LoaderButton(
+                borderSide: Colors.indigo,
+                color: Colors.white,
+                textColor: Colors.indigo,
+                btnText: "Change Status To Picked",
+                onTap: () async {
+                  await OrderRepo.instance.pickedOrder(
+                      orderId: widget.order.orderId,
+                      orderEnum: OrderEnum.picked);
+                },
+              ),
+            ),
+
+          if (widget.order.orderEnum == OrderEnum.picked)
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: LoaderButton(
                 borderSide: Colors.green,
                 color: Colors.white,
                 textColor: Colors.green,
-                btnText: "Change Status To Delievered",
+                btnText: "Change Status To Arrived",
                 onTap: () async {
-                  await OrderRepo.instance.deliveredOrder(
+                  await OrderRepo.instance.arrivedOrder(
                       orderId: widget.order.orderId,
-                      orderEnum: OrderEnum.delivered);
+                      orderEnum: OrderEnum.arrived);
                 },
+              ),
+            ),
+
+          if (widget.order.orderEnum == OrderEnum.arrived)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "User will confirm the order after receiving the order",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(fontSize: 13, fontWeight: FontWeight.w500,color: Colors.redAccent),
               ),
             ),
         ],

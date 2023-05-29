@@ -17,8 +17,8 @@ class MapState extends ChangeNotifier {
   LatLng? _latLng;
   LatLng? get latLng => _latLng;
 
-  void setAddress(String address) {
-    _selectedAddress = address;
+  void setAddress(String? address) {
+    _selectedAddress = address??'';
     notifyListeners();
   }
 

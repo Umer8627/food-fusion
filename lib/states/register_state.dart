@@ -12,10 +12,13 @@ class RegisterState with ChangeNotifier {
       selectImage = image;
       notifyListeners();
       log(selectImage!.path);
+    }else{
+      selectImage = null;
+      notifyListeners();
     }
   }
 
-  void selectType(String value) {
+  void selectType(String? value) {
     _selectedType = value;
     notifyListeners();
   }

@@ -177,6 +177,7 @@ class _AddItemPopupState extends State<AddItemPopup> {
                               model: model,
                             );
                             if (!mounted) return;
+                            registerState.selectImageFile(null);
                             Navigator.pop(context);
                           }
                         },

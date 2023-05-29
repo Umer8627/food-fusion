@@ -6,6 +6,7 @@ enum OrderEnum {
   rejected,
   assigned,
   picked,
+  arrived,
   delivered,
 }
 
@@ -22,6 +23,8 @@ extension TextColor on OrderEnum {
         return Colors.green;
       case OrderEnum.picked:
         return Colors.green;
+      case OrderEnum.arrived:
+        return Colors.blue;
       case OrderEnum.delivered:
         return Colors.green;
     }
@@ -41,6 +44,8 @@ extension Name on OrderEnum {
         return "Assigned";
       case OrderEnum.picked:
         return "Picked";
+      case OrderEnum.arrived:
+      return "Arrived";
       case OrderEnum.delivered:
         return "Delivered";
     }
