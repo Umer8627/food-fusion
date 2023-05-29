@@ -9,7 +9,6 @@ import 'package:food_fusion/states/user_state.dart';
 import 'package:food_fusion/utills/local_storage.dart';
 import 'package:food_fusion/view/splash/splash_view.dart';
 import 'package:provider/provider.dart';
-
 import 'firebase_options.dart';
 
 void main() async {
@@ -25,7 +24,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => MapState()),
         ChangeNotifierProvider(create: (context) => UserState()),
         ChangeNotifierProvider(create: (context) => ShopState()),
-         ChangeNotifierProvider(create: (context) => CartState()),
+        ChangeNotifierProvider(create: (context) => CartState()),
       ],
       child: const MyApp(),
     ),
