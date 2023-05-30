@@ -1,5 +1,5 @@
+import 'package:easy_pick/view/user/order/widgets/order_details_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/view/user/order/widgets/order_details_widget.dart';
 
 import '../../../models/order_model.dart';
 import '../../../repos/order_repo.dart';
@@ -22,7 +22,7 @@ class _UserPickedTabState extends State<UserPickedTab> {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return  Center(child: Text(snapshot.error.toString()));
+            return Center(child: Text(snapshot.error.toString()));
           }
           if (snapshot.data!.isEmpty) {
             return const Center(child: Text('No orders found'));

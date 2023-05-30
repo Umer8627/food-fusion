@@ -1,19 +1,19 @@
+import 'package:easy_pick/constants/color_constant.dart';
+import 'package:easy_pick/models/offer_model.dart';
+import 'package:easy_pick/models/order_model.dart';
+import 'package:easy_pick/models/request_model.dart';
+import 'package:easy_pick/repos/offer_repo.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/constants/color_constant.dart';
-import 'package:food_fusion/models/offer_model.dart';
-import 'package:food_fusion/models/order_model.dart';
-import 'package:food_fusion/models/request_model.dart';
-import 'package:food_fusion/repos/offer_repo.dart';
-import 'package:food_fusion/view/shopkeeper/request/widget/display_offer_widget.dart';
 
 import '../../../components/no_data_component.dart';
 import '../../../utills/snippets.dart';
-
+import 'widget/display_offer_widget.dart';
 
 class ShopOffersListView extends StatelessWidget {
   final RequestModel requestModel;
   final OrderModel orderModel;
-  const ShopOffersListView({super.key, required this.requestModel,required this.orderModel});
+  const ShopOffersListView(
+      {super.key, required this.requestModel, required this.orderModel});
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +48,9 @@ class ShopOffersListView extends StatelessWidget {
                 separatorBuilder: (context, index) =>
                     const SizedBox(height: 10),
                 itemBuilder: (context, index) => DisplayOffers(
-                  
                   offerModel: snapshot.data![index],
                   requestModel: requestModel,
                   orderModel: orderModel,
-
                 ),
               );
             }

@@ -1,11 +1,11 @@
 import 'dart:developer';
 
+import 'package:easy_pick/enums/order_enums.dart';
+import 'package:easy_pick/models/item_model.dart';
+import 'package:easy_pick/models/order_model.dart';
+import 'package:easy_pick/repos/order_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/enums/order_enums.dart';
-import 'package:food_fusion/models/item_model.dart';
-import 'package:food_fusion/models/order_model.dart';
-import 'package:food_fusion/repos/order_repo.dart';
 
 class CartState extends ChangeNotifier {
   Map<String, ItemModel> _cartItems = {};

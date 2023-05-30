@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_fusion/view/user/order/widgets/order_details_widget.dart';
-
 import '../../../models/order_model.dart';
 import '../../../repos/order_repo.dart';
 import 'widgets/shop_order_detail_widget.dart';
@@ -23,7 +21,7 @@ class _ShopOrderArrivedTabState extends State<ShopOrderArrivedTab> {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return  Center(child: Text(snapshot.error.toString()));
+            return Center(child: Text(snapshot.error.toString()));
           }
           if (snapshot.data!.isEmpty) {
             return const Center(child: Text('No orders found'));

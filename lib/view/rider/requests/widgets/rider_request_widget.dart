@@ -1,16 +1,15 @@
+import 'package:easy_pick/models/offer_model.dart';
+import 'package:easy_pick/models/request_model.dart';
+import 'package:easy_pick/models/user_model.dart';
+import 'package:easy_pick/repos/offer_repo.dart';
+import 'package:easy_pick/repos/request_repo.dart';
+import 'package:easy_pick/repos/user_repo.dart';
+import 'package:easy_pick/utills/snippets.dart';
+import 'package:easy_pick/view/widgets/loader_button.dart';
+import 'package:easy_pick/view/widgets/show_status_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_fusion/models/offer_model.dart';
-import 'package:food_fusion/models/request_model.dart';
-import 'package:food_fusion/models/user_model.dart';
-import 'package:food_fusion/repos/offer_repo.dart';
-import 'package:food_fusion/repos/request_repo.dart';
-import 'package:food_fusion/repos/user_repo.dart';
-import 'package:food_fusion/utills/snippets.dart';
-import 'package:food_fusion/view/widgets/loader_button.dart';
-import 'package:food_fusion/view/widgets/show_status_widget.dart';
-
 import '../../../../constants/color_constant.dart';
 import '../offers/create_offer_popup.dart';
 

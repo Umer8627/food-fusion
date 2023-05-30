@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:food_fusion/models/user_model.dart';
+import 'package:easy_pick/models/user_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../models/request_model.dart';
 import 'dart:math' show atan2, cos, pi, pow, sin, sqrt;
