@@ -249,9 +249,7 @@ class _RegisterViewState extends State<RegisterView> {
   String? confirmPasswordValidator() {
     if (confirmPasswordController != passwordController) {
       return 'Password do not match';
-    } else {
-      
-    }
+    } else {}
     return null;
   }
 }
