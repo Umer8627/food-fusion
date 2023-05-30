@@ -31,6 +31,7 @@ class _RegisterViewState extends State<RegisterView> {
   final cnicController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final shopNameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -117,6 +118,18 @@ class _RegisterViewState extends State<RegisterView> {
                         isVisible: true,
                         controller: passwordController,
                         hintText: 'Password',
+                        validator: passwordValidator,
+                        suffixIcon: Icons.visibility,
+                        suffixIcon2: Icons.visibility_off,
+                      ),
+                      const SizedBox(height: 22),
+                      CustomTextField(
+                        maxLine: 1,
+                        labelText: 'Confirm Password',
+                        prefixIcon: Icons.lock,
+                        isVisible: true,
+                        controller: confirmPasswordController,
+                        hintText: 'Confirm Password',
                         validator: passwordValidator,
                         suffixIcon: Icons.visibility,
                         suffixIcon2: Icons.visibility_off,
@@ -231,6 +244,13 @@ class _RegisterViewState extends State<RegisterView> {
     cnicController.dispose();
     emailController.dispose();
     passwordController.dispose();
+  }
+
+  String? confirmPasswordValidator() {
+    if (confirmPasswordController != passwordController) {
+      return 'Password do not match';
+    } else {}
+    return null;
   }
 }
 
