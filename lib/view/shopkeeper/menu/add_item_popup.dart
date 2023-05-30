@@ -79,7 +79,7 @@ class _AddItemPopupState extends State<AddItemPopup> {
                       CustomTextField(
                         maxLine: 1,
                         labelText: 'Price',
-                        prefixIcon: Icons.price_check,
+                        prefixIcon: FontAwesomeIcons.rupeeSign,
                         controller: itemPriceController,
                         hintText: "Price",
                         validator: mandatoryValidator,
