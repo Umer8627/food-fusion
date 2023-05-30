@@ -78,7 +78,7 @@ class _RegisterViewState extends State<RegisterView> {
                         prefixIcon: Icons.phone,
                         controller: phoneController,
                         hintText: "Phone No",
-                        validator: mandatoryValidator,
+                        validator: validatePhoneNumber,
                       ),
                       const SizedBox(height: 22),
                       CustomTextField(
@@ -131,7 +131,7 @@ class _RegisterViewState extends State<RegisterView> {
                         isVisible: true,
                         controller: confirmPasswordController,
                         hintText: 'Confirm Password',
-                        validator: passwordValidator,
+                        validator: confirmPasswordValidator,
                         suffixIcon: Icons.visibility,
                         suffixIcon2: Icons.visibility_off,
                       ),
@@ -247,22 +247,37 @@ class _RegisterViewState extends State<RegisterView> {
     passwordController.dispose();
   }
 
-  String? confirmPasswordValidator() {
-    if (confirmPasswordController != passwordController) {
+  String? confirmPasswordValidator(String? confirmPassword) {
+    if (confirmPassword != passwordController.text) {
       return 'Password do not match';
-    } else {}
+    }
     return null;
   }
-}
 
-String? cnicValidation(String? cnic) {
-  const pattern = r'^\d{5}-\d{7}-\d{1}$';
+  String? validatePhoneNumber(String? phoneNumber) {
+    // Remove any whitespace or special characters from the phone number
+    phoneNumber = phoneNumber?.replaceAll(RegExp(r'\D'), '');
 
-  if (cnic!.isEmpty) {
-    return 'CNIC is required';
-  } else if (!RegExp(pattern).hasMatch(cnic)) {
-    return 'Invalid CNIC Format';
+    // Define the regular expression pattern for a valid Pakistani phone number
+    RegExp regex = RegExp(r'^(?:\+92|0)?3[0-9]{9}$');
+
+    // Check if the phone number matches the pattern
+    if (!regex.hasMatch(phoneNumber ?? '')) {
+      return 'Invalid phone number format';
+    }
+
+    return null;
   }
 
-  return null;
+  String? cnicValidation(String? cnic) {
+    const pattern = r'^\d{5}-\d{7}-\d{1}$';
+
+    if (cnic!.isEmpty) {
+      return 'CNIC is required';
+    } else if (!RegExp(pattern).hasMatch(cnic)) {
+      return 'Invalid CNIC Format';
+    }
+
+    return null;
+  }
 }

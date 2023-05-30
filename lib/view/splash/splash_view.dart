@@ -24,7 +24,11 @@ class _SplashViewState extends State<SplashView> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Center(
-        child: Image.asset('assets/images/logo.png', height: 200, width: 200),
+        child: Image.asset(
+          'assets/images/logo.png',
+          height: 200,
+          width: 200,
+        ),
       ),
     );
   }
