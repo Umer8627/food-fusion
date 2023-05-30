@@ -106,8 +106,8 @@ class _RegisterViewState extends State<RegisterView> {
                         labelText: 'CNIC',
                         prefixIcon: FontAwesomeIcons.idCard,
                         controller: cnicController,
-                        hintText: "CNIC",
-                        validator: mandatoryValidator,
+                        hintText: "XXXXX-XXXXXXX-X",
+                        validator: cnicValidation,
                       ),
                       const SizedBox(height: 22),
                       CustomTextField(
@@ -232,4 +232,16 @@ class _RegisterViewState extends State<RegisterView> {
     emailController.dispose();
     passwordController.dispose();
   }
+}
+
+String? cnicValidation(String? cnic) {
+  const pattern = r'^\d{5}-\d{7}-\d{1}$';
+
+  if (cnic!.isEmpty) {
+    return 'CNIC is required';
+  } else if (!RegExp(pattern).hasMatch(cnic)) {
+    return 'Invalid CNIC Format';
+  }
+
+  return null;
 }
