@@ -1,12 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_fusion/models/offer_model.dart';
 import 'package:food_fusion/models/request_model.dart';
 import 'package:food_fusion/models/user_model.dart';
 import 'package:food_fusion/repos/offer_repo.dart';
-import 'package:food_fusion/repos/order_repo.dart';
 import 'package:food_fusion/repos/request_repo.dart';
 import 'package:food_fusion/repos/user_repo.dart';
 import 'package:food_fusion/utills/snippets.dart';
