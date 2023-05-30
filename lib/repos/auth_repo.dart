@@ -22,7 +22,9 @@ class AuthRepo {
     String? shopName,
   }) async {
     await firebaseAuth.createUserWithEmailAndPassword(
-        email: userModel.email, password: password);
+      email: userModel.email,
+      password: password,
+    );
     String profileImg =
         await uploadImages(image: img, name: firebaseAuth.currentUser!.uid);
     await uploadUserDetails(
