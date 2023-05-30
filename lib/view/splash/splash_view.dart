@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/color_constant.dart';
 import '../../utills/snippets.dart';
 import '../handle_login.dart';
