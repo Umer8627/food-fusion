@@ -1,8 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
-
+import 'package:easy_pick/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/models/user_model.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 
 class UserState extends ChangeNotifier {

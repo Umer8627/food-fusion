@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:easy_pick/view/rider/orders/rider_order_view.dart';
+import 'package:easy_pick/view/widgets/custom_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_fusion/view/rider/orders/rider_order_view.dart';
-import 'package:food_fusion/view/rider/requests/rider_request_view.dart';
-import 'package:food_fusion/view/widgets/custom_app_bar.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../../models/user_model.dart';
@@ -14,6 +14,7 @@ import '../../../states/user_state.dart';
 
 import '../../constants/color_constant.dart';
 import '../profile/edit_profile.dart';
+import 'requests/rider_request_view.dart';
 
 class RiderDashboard extends StatefulWidget {
   const RiderDashboard({super.key});

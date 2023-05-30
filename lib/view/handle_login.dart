@@ -1,7 +1,7 @@
+import 'package:easy_pick/view/rider/rider_dashboard.dart';
+import 'package:easy_pick/view/shopkeeper/shop_keeper_dashboard.dart';
+import 'package:easy_pick/view/user/user_dashboard.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/view/rider/rider_dashboard.dart';
-import 'package:food_fusion/view/shopkeeper/shop_keeper_dashboard.dart';
-import 'package:food_fusion/view/user/user_dashboard.dart';
 
 import '../repos/auth_repo.dart';
 import 'auth/login_view.dart';

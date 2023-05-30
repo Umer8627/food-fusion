@@ -1,5 +1,5 @@
+import 'package:easy_pick/utills/snippets.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/utills/snippets.dart';
 
 import '../../constants/color_constant.dart';
 

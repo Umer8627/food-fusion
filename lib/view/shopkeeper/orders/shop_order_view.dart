@@ -1,13 +1,13 @@
+import 'package:easy_pick/view/shopkeeper/orders/shop_order_arrived_tab.dart';
+import 'package:easy_pick/view/shopkeeper/orders/shop_order_delivered_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/view/shopkeeper/orders/shop_order_arrived_tab.dart';
-import 'package:food_fusion/view/shopkeeper/orders/shop_order_assigned_tab.dart';
-import 'package:food_fusion/view/shopkeeper/orders/shop_order_delivered_tab.dart';
-import 'package:food_fusion/view/shopkeeper/orders/shop_order_pending_tab.dart';
-import 'package:food_fusion/view/shopkeeper/orders/show_order_accepted_tab.dart';
 
 import '../../../constants/color_constant.dart';
 import '../../../utills/snippets.dart';
+import 'shop_order_assigned_tab.dart';
+import 'shop_order_pending_tab.dart';
 import 'shop_order_picked_tab.dart';
+import 'show_order_accepted_tab.dart';
 
 class ShopHomeview extends StatefulWidget {
   const ShopHomeview({super.key});

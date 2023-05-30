@@ -1,17 +1,18 @@
+import 'package:easy_pick/constants/color_constant.dart';
+import 'package:easy_pick/enums/order_enums.dart';
+import 'package:easy_pick/models/order_model.dart';
+import 'package:easy_pick/models/user_model.dart';
+import 'package:easy_pick/repos/order_repo.dart';
+import 'package:easy_pick/view/widgets/loader_button.dart';
+import 'package:easy_pick/view/widgets/show_status_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_fusion/constants/color_constant.dart';
-import 'package:food_fusion/enums/order_enums.dart';
-import 'package:food_fusion/models/order_model.dart';
-import 'package:food_fusion/models/user_model.dart';
-import 'package:food_fusion/repos/order_repo.dart';
-import 'package:food_fusion/view/widgets/loader_button.dart';
-import 'package:food_fusion/view/widgets/show_status_widget.dart';
+
 import '../../../../repos/user_repo.dart';
 
 class OrderDetailsWidget extends StatefulWidget {
   final OrderModel order;
- 
+
   const OrderDetailsWidget({super.key, required this.order});
 
   @override
@@ -232,8 +233,9 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     ),
                   ],
                 ),
-             widget.order.orderEnum.index == OrderEnum.delivered.index
-                    ?    const SizedBox(height: 5):const SizedBox.shrink(),
+                widget.order.orderEnum.index == OrderEnum.delivered.index
+                    ? const SizedBox(height: 5)
+                    : const SizedBox.shrink(),
                 widget.order.orderEnum.index == OrderEnum.delivered.index
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -256,7 +258,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                           ),
                         ],
                       )
-                    :const SizedBox.shrink(),
+                    : const SizedBox.shrink(),
               ],
             ),
           ),

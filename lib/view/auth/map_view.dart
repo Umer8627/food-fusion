@@ -1,9 +1,10 @@
 import 'dart:developer';
 
+import 'package:easy_pick/states/map_state.dart';
+import 'package:easy_pick/view/auth/components/show_map_address_widget.dart';
+import 'package:easy_pick/view/auth/permission_view.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/states/map_state.dart';
-import 'package:food_fusion/view/auth/components/show_map_address_widget.dart';
-import 'package:food_fusion/view/auth/permission_view.dart';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 

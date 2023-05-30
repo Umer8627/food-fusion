@@ -1,18 +1,15 @@
+import 'package:easy_pick/components/no_data_component.dart';
+import 'package:easy_pick/constants/color_constant.dart';
+import 'package:easy_pick/constants/theme_constant.dart';
+import 'package:easy_pick/models/user_model.dart';
+import 'package:easy_pick/repos/order_repo.dart';
+import 'package:easy_pick/repos/rider_repo.dart';
+import 'package:easy_pick/states/user_state.dart';
+import 'package:easy_pick/view/widgets/custom_app_bar.dart';
+import 'package:easy_pick/view/widgets/loader_button.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/components/no_data_component.dart';
-import 'package:food_fusion/constants/color_constant.dart';
-import 'package:food_fusion/constants/theme_constant.dart';
-import 'package:food_fusion/enums/order_enums.dart';
-import 'package:food_fusion/models/user_model.dart';
-import 'package:food_fusion/repos/order_repo.dart';
-import 'package:food_fusion/repos/rider_repo.dart';
-
-import 'package:food_fusion/states/user_state.dart';
-
-import 'package:food_fusion/view/widgets/custom_app_bar.dart';
-import 'package:food_fusion/view/widgets/loader_button.dart';
 import 'package:provider/provider.dart';
-
+import '../../../enums/order_enums.dart';
 import '../../../models/order_model.dart';
 import '../../../utills/snippets.dart';
 
@@ -142,13 +139,20 @@ class _FindRiderViewState extends State<FindRiderView> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
                                         child: LoaderButton(
                                             color: primaryColor,
                                             btnText: "Assigned Order",
                                             onTap: () async {
-                                              OrderRepo.instance.assignOrderToRider(orderId: widget.orderModel.orderId, orderEnum: OrderEnum.assigned, riderId: model.uid);
-                                              if(!mounted)return;
+                                              OrderRepo.instance
+                                                  .assignOrderToRider(
+                                                      orderId: widget
+                                                          .orderModel.orderId,
+                                                      orderEnum:
+                                                          OrderEnum.assigned,
+                                                      riderId: model.uid);
+                                              if (!mounted) return;
                                               pop(context);
                                             }),
                                       ),

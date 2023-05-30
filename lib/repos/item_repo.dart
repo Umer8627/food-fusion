@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_pick/models/item_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:food_fusion/models/item_model.dart';
 
 class ItemRepo {
   static final instance = ItemRepo();
@@ -29,9 +29,13 @@ class ItemRepo {
     return resp.ref.getDownloadURL();
   }
 
-  Stream<List<ItemModel>> getAllShopItem({required String id}){
-    return firestore.collection('items').where('authId',isEqualTo: id).snapshots().map((event) => event.docs.map((e) => ItemModel.fromMap(e.data() as dynamic)).toList());
+  Stream<List<ItemModel>> getAllShopItem({required String id}) {
+    return firestore
+        .collection('items')
+        .where('authId', isEqualTo: id)
+        .snapshots()
+        .map((event) => event.docs
+            .map((e) => ItemModel.fromMap(e.data() as dynamic))
+            .toList());
   }
-
-  
 }

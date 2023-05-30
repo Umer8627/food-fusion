@@ -1,10 +1,11 @@
+import 'package:easy_pick/constants/color_constant.dart';
+import 'package:easy_pick/states/map_state.dart';
+import 'package:easy_pick/states/register_state.dart';
+import 'package:easy_pick/view/auth/components/select_image_widget.dart';
+import 'package:easy_pick/view/auth/map_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_fusion/constants/color_constant.dart';
-import 'package:food_fusion/states/map_state.dart';
-import 'package:food_fusion/states/register_state.dart';
-import 'package:food_fusion/view/auth/components/select_image_widget.dart';
-import 'package:food_fusion/view/auth/map_view.dart';
+
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:provider/provider.dart';
 

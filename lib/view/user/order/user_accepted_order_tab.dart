@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_fusion/view/user/order/widgets/order_details_widget.dart';
 import '../../../models/order_model.dart';
 import '../../../repos/order_repo.dart';
+import 'widgets/order_details_widget.dart';
 
 class UserAcceptedOrderTab extends StatefulWidget {
   const UserAcceptedOrderTab({super.key});
@@ -21,7 +21,7 @@ class _UserAcceptedOrderTabState extends State<UserAcceptedOrderTab> {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return  Center(child: Text(snapshot.error.toString()));
+            return Center(child: Text(snapshot.error.toString()));
           }
           if (snapshot.data!.isEmpty) {
             return const Center(child: Text('No orders found'));

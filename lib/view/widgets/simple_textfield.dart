@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:easy_pick/constants/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:food_fusion/constants/color_constant.dart';
 
 class SimpleTextField extends StatefulWidget {
   final TextEditingController controller;

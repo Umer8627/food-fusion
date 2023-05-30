@@ -1,9 +1,9 @@
+import 'package:easy_pick/models/offer_model.dart';
+import 'package:easy_pick/states/user_state.dart';
+import 'package:easy_pick/view/widgets/custom_textfield.dart';
+import 'package:easy_pick/view/widgets/loader_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:food_fusion/models/offer_model.dart';
-import 'package:food_fusion/states/user_state.dart';
-import 'package:food_fusion/view/widgets/custom_textfield.dart';
-import 'package:food_fusion/view/widgets/loader_button.dart';
 import 'package:provider/provider.dart';
 import '../../../../models/request_model.dart';
 import '../../../../repos/offer_repo.dart';
@@ -85,7 +85,7 @@ class _CreateOfferPopupState extends State<CreateOfferPopup> {
                                 return;
                               }
                               OfferModel offerModel = OfferModel(
-                                orderId: widget.requestModel.orderId,
+                                  orderId: widget.requestModel.orderId,
                                   docId: '',
                                   createdAt:
                                       DateTime.now().microsecondsSinceEpoch,

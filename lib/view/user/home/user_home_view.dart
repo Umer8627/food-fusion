@@ -1,13 +1,14 @@
+import 'package:easy_pick/components/no_data_component.dart';
+import 'package:easy_pick/constants/color_constant.dart';
+import 'package:easy_pick/constants/theme_constant.dart';
+import 'package:easy_pick/models/user_model.dart';
+import 'package:easy_pick/states/user_state.dart';
+import 'package:easy_pick/view/user/home/shop_products/shop_products_view.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/components/no_data_component.dart';
-import 'package:food_fusion/constants/color_constant.dart';
-import 'package:food_fusion/constants/theme_constant.dart';
-import 'package:food_fusion/models/user_model.dart';
-import 'package:food_fusion/repos/shop_repo.dart';
-import 'package:food_fusion/states/user_state.dart';
-import 'package:food_fusion/view/user/home/shop_products/shop_products_view.dart';
+
 import 'package:provider/provider.dart';
 
+import '../../../repos/shop_repo.dart';
 import '../../../utills/snippets.dart';
 
 class UserHomeView extends StatefulWidget {
@@ -23,8 +24,9 @@ class _UserHomeViewState extends State<UserHomeView> {
   @override
   initState() {
     super.initState();
-   radiusController.text=radius.toString();
+    radiusController.text = radius.toString();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

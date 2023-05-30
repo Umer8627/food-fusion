@@ -1,6 +1,7 @@
+import 'package:easy_pick/constants/color_constant.dart';
+import 'package:easy_pick/view/widgets/loader_button.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/constants/color_constant.dart';
-import 'package:food_fusion/view/widgets/loader_button.dart';
+
 import 'package:geolocator/geolocator.dart';
 
 import '../../utills/snippets.dart';

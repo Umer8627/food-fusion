@@ -1,16 +1,17 @@
 import 'dart:io';
+import 'package:easy_pick/components/dialog_widget.dart';
+import 'package:easy_pick/constants/color_constant.dart';
+import 'package:easy_pick/models/user_model.dart';
+import 'package:easy_pick/repos/user_repo.dart';
+import 'package:easy_pick/states/user_state.dart';
+import 'package:easy_pick/utills/local_storage.dart';
+import 'package:easy_pick/view/auth/login_view.dart';
+import 'package:easy_pick/view/widgets/custom_textfield.dart';
+import 'package:easy_pick/view/widgets/loader_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_fusion/components/dialog_widget.dart';
-import 'package:food_fusion/constants/color_constant.dart';
-import 'package:food_fusion/models/user_model.dart';
-import 'package:food_fusion/repos/user_repo.dart';
-import 'package:food_fusion/states/user_state.dart';
-import 'package:food_fusion/utills/local_storage.dart';
-import 'package:food_fusion/view/auth/login_view.dart';
-import 'package:food_fusion/view/widgets/custom_textfield.dart';
-import 'package:food_fusion/view/widgets/loader_button.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../utills/snippets.dart';

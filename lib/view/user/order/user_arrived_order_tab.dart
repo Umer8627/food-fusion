@@ -1,8 +1,9 @@
 import 'dart:developer';
+import 'package:easy_pick/models/order_model.dart';
+import 'package:easy_pick/view/user/order/widgets/order_details_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/models/order_model.dart';
-import 'package:food_fusion/repos/order_repo.dart';
-import 'package:food_fusion/view/user/order/widgets/order_details_widget.dart';
+
+import '../../../repos/order_repo.dart';
 
 class UserArrivedOrderTab extends StatefulWidget {
   const UserArrivedOrderTab({super.key});

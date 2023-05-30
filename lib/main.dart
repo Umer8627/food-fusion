@@ -1,13 +1,14 @@
+import 'package:easy_pick/constants/theme_constant.dart';
+import 'package:easy_pick/states/cart_state.dart';
+import 'package:easy_pick/states/map_state.dart';
+import 'package:easy_pick/states/register_state.dart';
+import 'package:easy_pick/states/shop_state.dart';
+import 'package:easy_pick/states/user_state.dart';
+import 'package:easy_pick/utills/local_storage.dart';
+import 'package:easy_pick/view/splash/splash_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/constants/theme_constant.dart';
-import 'package:food_fusion/states/cart_state.dart';
-import 'package:food_fusion/states/map_state.dart';
-import 'package:food_fusion/states/register_state.dart';
-import 'package:food_fusion/states/shop_state.dart';
-import 'package:food_fusion/states/user_state.dart';
-import 'package:food_fusion/utills/local_storage.dart';
-import 'package:food_fusion/view/splash/splash_view.dart';
+
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 

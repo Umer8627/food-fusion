@@ -1,9 +1,10 @@
 import 'dart:io';
 
+import 'package:easy_pick/components/dialog_widget.dart';
+import 'package:easy_pick/states/register_state.dart';
+import 'package:easy_pick/utills/snippets.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/components/dialog_widget.dart';
-import 'package:food_fusion/states/register_state.dart';
-import 'package:food_fusion/utills/snippets.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 

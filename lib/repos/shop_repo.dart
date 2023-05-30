@@ -1,14 +1,10 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:food_fusion/models/user_model.dart';
+import 'package:easy_pick/models/user_model.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
-
 
 class ShopRepo {
   static final instance = ShopRepo();
   final firestore = FirebaseFirestore.instance;
-
-
 
   Stream<List<UserModel>> getAllUsersByGeoPackage(
       {required UserModel userModel, required int rad}) {
@@ -33,7 +29,4 @@ class ShopRepo {
           return user;
         }).toList());
   }
-
-
-
 }

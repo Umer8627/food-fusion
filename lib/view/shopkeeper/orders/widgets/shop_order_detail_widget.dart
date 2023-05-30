@@ -1,16 +1,17 @@
+import 'package:easy_pick/constants/color_constant.dart';
+import 'package:easy_pick/enums/order_enums.dart';
+import 'package:easy_pick/models/order_model.dart';
+import 'package:easy_pick/models/request_model.dart';
+import 'package:easy_pick/models/user_model.dart';
+import 'package:easy_pick/repos/order_repo.dart';
+import 'package:easy_pick/repos/request_repo.dart';
+import 'package:easy_pick/utills/snippets.dart';
+import 'package:easy_pick/view/shopkeeper/request/shop_offer_view.dart';
+import 'package:easy_pick/view/widgets/loader_button.dart';
+import 'package:easy_pick/view/widgets/show_status_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_fusion/constants/color_constant.dart';
-import 'package:food_fusion/enums/order_enums.dart';
-import 'package:food_fusion/models/order_model.dart';
-import 'package:food_fusion/models/request_model.dart';
-import 'package:food_fusion/models/user_model.dart';
-import 'package:food_fusion/repos/order_repo.dart';
-import 'package:food_fusion/repos/request_repo.dart';
-import 'package:food_fusion/utills/snippets.dart';
-import 'package:food_fusion/view/shopkeeper/request/shop_offer_view.dart';
-import 'package:food_fusion/view/widgets/loader_button.dart';
-import 'package:food_fusion/view/widgets/show_status_widget.dart';
+
 import '../../../../repos/user_repo.dart';
 import '../../request/add_request_popup.dart';
 
@@ -237,8 +238,9 @@ class _ShopOrderDetailViewState extends State<ShopOrderDetailView> {
                     ),
                   ],
                 ),
-                  widget.order.orderEnum.index == OrderEnum.delivered.index
-                    ?    const SizedBox(height: 5):const SizedBox.shrink(),
+                widget.order.orderEnum.index == OrderEnum.delivered.index
+                    ? const SizedBox(height: 5)
+                    : const SizedBox.shrink(),
                 widget.order.orderEnum.index == OrderEnum.delivered.index
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -261,7 +263,7 @@ class _ShopOrderDetailViewState extends State<ShopOrderDetailView> {
                           ),
                         ],
                       )
-                    :const SizedBox.shrink(),
+                    : const SizedBox.shrink(),
               ],
             ),
           ),
@@ -321,7 +323,12 @@ class _ShopOrderDetailViewState extends State<ShopOrderDetailView> {
                               color: Colors.green,
                               btnText: "View Your Request Offers",
                               onTap: () async {
-                                push(context, ShopOffersListView(orderModel: widget.order,requestModel: requestModel,));
+                                push(
+                                    context,
+                                    ShopOffersListView(
+                                      orderModel: widget.order,
+                                      requestModel: requestModel,
+                                    ));
                               }),
                         ),
                         const SizedBox(height: 10),

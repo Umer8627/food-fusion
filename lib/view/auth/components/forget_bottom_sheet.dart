@@ -1,6 +1,6 @@
+import 'package:easy_pick/view/widgets/custom_textfield.dart';
+import 'package:easy_pick/view/widgets/loader_button.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/view/widgets/custom_textfield.dart';
-import 'package:food_fusion/view/widgets/loader_button.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 

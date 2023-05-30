@@ -1,9 +1,10 @@
+import 'package:easy_pick/models/item_model.dart';
+import 'package:easy_pick/repos/item_repo.dart';
+import 'package:easy_pick/states/cart_state.dart';
+import 'package:easy_pick/utills/snippets.dart';
+import 'package:easy_pick/view/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/models/item_model.dart';
-import 'package:food_fusion/repos/item_repo.dart';
-import 'package:food_fusion/states/cart_state.dart';
-import 'package:food_fusion/utills/snippets.dart';
-import 'package:food_fusion/view/widgets/custom_app_bar.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../../../constants/color_constant.dart';
@@ -23,7 +24,7 @@ class _ShopProductsViewState extends State<ShopProductsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      appBar:const  CustomAppBar(
+      appBar: const CustomAppBar(
         title: 'Shop Products',
         showLeading: true,
       ),
@@ -98,7 +99,9 @@ class _ShopProductsViewState extends State<ShopProductsView> {
                                 const SizedBox(height: 10),
                                 GestureDetector(
                                   onTap: () {
-                                    final cartState=  Provider.of<CartState>(context,listen: false);
+                                    final cartState = Provider.of<CartState>(
+                                        context,
+                                        listen: false);
                                     cartState.addToCart(model);
                                   },
                                   child: const Icon(

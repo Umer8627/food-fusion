@@ -1,11 +1,11 @@
+import 'package:easy_pick/view/rider/orders/rider_delivered_order_tab.dart';
+import 'package:easy_pick/view/rider/orders/rider_picked_order_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/view/rider/orders/rider_arrived_order_tab.dart';
-import 'package:food_fusion/view/rider/orders/rider_assigned_order_tab.dart';
-import 'package:food_fusion/view/rider/orders/rider_delivered_order_tab.dart';
-import 'package:food_fusion/view/rider/orders/rider_picked_order_tab.dart';
 
 import '../../../constants/color_constant.dart';
 import '../../../utills/snippets.dart';
+import 'rider_arrived_order_tab.dart';
+import 'rider_assigned_order_tab.dart';
 
 class RiderOrderView extends StatefulWidget {
   const RiderOrderView({super.key});
@@ -78,7 +78,7 @@ class _RiderOrderViewState extends State<RiderOrderView>
                 child: TabBarView(
                   controller: tabController,
                   physics: const NeverScrollableScrollPhysics(),
-                  children:const [
+                  children: const [
                     RiderOrderAssignedTab(),
                     RiderPickedOrderTab(),
                     RiderArrivedOrderTab(),

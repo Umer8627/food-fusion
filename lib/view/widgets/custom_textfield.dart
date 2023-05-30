@@ -1,6 +1,6 @@
+import 'package:easy_pick/constants/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:food_fusion/constants/color_constant.dart';
 
 // ignore: must_be_immutable
 class CustomTextField extends StatefulWidget {

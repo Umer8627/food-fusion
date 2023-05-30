@@ -1,4 +1,4 @@
-import 'package:food_fusion/enums/message_enums.dart';
+import '../enums/message_enums.dart';
 
 class Message {
   final String senderId;

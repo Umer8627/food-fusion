@@ -1,10 +1,10 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_pick/enums/message_enums.dart';
+import 'package:easy_pick/models/contact_model.dart';
+import 'package:easy_pick/models/message_model.dart';
+import 'package:easy_pick/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:food_fusion/enums/message_enums.dart';
-import 'package:food_fusion/models/contact_model.dart';
-import 'package:food_fusion/models/message_model.dart';
-import 'package:food_fusion/models/user_model.dart';
 
 import 'package:uuid/uuid.dart';
 

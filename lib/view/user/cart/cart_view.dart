@@ -1,10 +1,10 @@
+import 'package:easy_pick/components/no_data_component.dart';
+import 'package:easy_pick/states/cart_state.dart';
+import 'package:easy_pick/utills/snippets.dart';
+import 'package:easy_pick/view/widgets/custom_app_bar.dart';
+import 'package:easy_pick/view/widgets/loader_button.dart';
 import 'package:flutter/material.dart';
-import 'package:food_fusion/components/no_data_component.dart';
 
-import 'package:food_fusion/states/cart_state.dart';
-import 'package:food_fusion/utills/snippets.dart';
-import 'package:food_fusion/view/widgets/custom_app_bar.dart';
-import 'package:food_fusion/view/widgets/loader_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/color_constant.dart';
@@ -97,14 +97,14 @@ class _CartViewState extends State<CartView> {
             ),
             const Spacer(),
             Container(
-              padding:const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
                     blurRadius: 2,
-                    offset:const Offset(0, -1),
+                    offset: const Offset(0, -1),
                   ),
                 ],
               ),
@@ -133,15 +133,17 @@ class _CartViewState extends State<CartView> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: LoaderButton(btnText: "Place Order", onTap: () async {
-              try {
-                 await cartState.placeOrder(cartState.cartItems);
-               if(!mounted)return;
-               snack(context, 'Order Placed Successfully');
-              } catch (e) {
-                snack(context, e.toString());
-              }
-              }),
+              child: LoaderButton(
+                  btnText: "Place Order",
+                  onTap: () async {
+                    try {
+                      await cartState.placeOrder(cartState.cartItems);
+                      if (!mounted) return;
+                      snack(context, 'Order Placed Successfully');
+                    } catch (e) {
+                      snack(context, e.toString());
+                    }
+                  }),
             ),
             const SizedBox(
               height: 20,

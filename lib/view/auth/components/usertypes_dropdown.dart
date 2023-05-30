@@ -1,7 +1,7 @@
+import 'package:easy_pick/constants/color_constant.dart';
+import 'package:easy_pick/states/register_state.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_fusion/constants/color_constant.dart';
-import 'package:food_fusion/states/register_state.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -12,6 +12,8 @@ class UsertypesDropdown extends StatelessWidget {
     'Rider',
     'Shop Keeper',
   ];
+
+  get textFieldColor => null;
   @override
   Widget build(BuildContext context) {
     RegisterState userState = Provider.of<RegisterState>(context);
