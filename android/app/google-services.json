@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "846190937468",
-    "project_id": "food-fus",
-    "storage_bucket": "food-fus.appspot.com"
+    "project_number": "531217768132",
+    "project_id": "easy-pick-40352",
+    "storage_bucket": "easy-pick-40352.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:846190937468:android:26d7d95f4b000577dad0f9",
+        "mobilesdk_app_id": "1:531217768132:android:d75157e5c062f133a5b391",
         "android_client_info": {
           "package_name": "com.example.food_fusion"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCNqDXqj5finhPSLre4hUwQDb1gaykBOPE"
+          "current_key": "AIzaSyA2oEJpcUSwDZ6rtGtMqhM04J3zb8Vqwxs"
         }
       ],
       "services": {
