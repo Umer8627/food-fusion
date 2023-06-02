@@ -28,6 +28,14 @@ class _AddRequestPopupState extends State<AddRequestPopup> {
   String? selectedType;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    priceController.text = '100';
+    print(priceController.text);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -64,6 +72,7 @@ class _AddRequestPopupState extends State<AddRequestPopup> {
                               labelText: 'Offer price',
                               hintText: 'Offer price',
                               controller: priceController,
+                              readOnly: true,
                               maxLine: null,
                               inputType: TextInputType.number,
                             ),
@@ -87,7 +96,7 @@ class _AddRequestPopupState extends State<AddRequestPopup> {
                               shopId: FirebaseAuth.instance.currentUser!.uid,
                               docId: "",
                               userId: widget.orderModel.userId,
-                              price: priceController.text,
+                              price: '100',
                               radius: int.parse(radiusController.text),
                               discription: descriptionController.text,
                               geoFirePoint: context

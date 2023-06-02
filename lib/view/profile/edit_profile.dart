@@ -170,14 +170,24 @@ class _EditProfileViewState extends State<EditProfileView> {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        userProvider.selectImage == null
-            ? CircleAvatar(
-                radius: 58,
-                backgroundImage: NetworkImage(imgUrl),
-              )
-            : CircleAvatar(
-                backgroundImage: FileImage(userProvider.selectImage!),
-                radius: 58),
+        if (userProvider.selectImage == null && imgUrl.isNotEmpty)
+          CircleAvatar(
+            radius: 58,
+            backgroundImage: NetworkImage(imgUrl),
+          )
+        else if (userProvider.selectImage != null)
+          CircleAvatar(
+            backgroundImage: FileImage(userProvider.selectImage!),
+            radius: 58,
+          )
+        else
+          CircleAvatar(
+            radius: 58,
+            child: Text(
+              userProvider.userModel.name.substring(0, 1),
+              style: const TextStyle(fontSize: 32),
+            ),
+          ),
         Positioned(
           bottom: -5,
           right: -5,
@@ -190,19 +200,22 @@ class _EditProfileViewState extends State<EditProfileView> {
                 padding: EdgeInsets.zero,
                 icon: const Icon(Icons.camera_alt),
                 onPressed: () {
-                  showDialogOf(context, ImageDialogWidget(
-                    onClick: (ref) async {
-                      Navigator.of(context).pop();
-                      if (ref.toString().contains("camera")) {
-                        uploadImage = await pickImage(ImageSource.camera);
-                      } else {
-                        uploadImage = await pickImage(ImageSource.gallery);
-                      }
-                      // ignore: use_build_context_synchronously
-                      Provider.of<UserState>(context, listen: false)
-                          .selectImageFile(uploadImage!);
-                    },
-                  ));
+                  showDialogOf(
+                    context,
+                    ImageDialogWidget(
+                      onClick: (ref) async {
+                        Navigator.of(context).pop();
+                        if (ref.toString().contains("camera")) {
+                          uploadImage = await pickImage(ImageSource.camera);
+                        } else {
+                          uploadImage = await pickImage(ImageSource.gallery);
+                        }
+                        // ignore: use_build_context_synchronously
+                        Provider.of<UserState>(context, listen: false)
+                            .selectImageFile(uploadImage!);
+                      },
+                    ),
+                  );
                 },
               ),
             ),

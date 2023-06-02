@@ -18,49 +18,61 @@ class AuthRepo {
   Future<void> createUser({
     required UserModel userModel,
     required String password,
-    required File img,
+    File? img,
     String? shopName,
   }) async {
-    await firebaseAuth.createUserWithEmailAndPassword(
-      email: userModel.email,
-      password: password,
-    );
-    String profileImg =
-        await uploadImages(image: img, name: firebaseAuth.currentUser!.uid);
-    await uploadUserDetails(
-        userModel: userModel,
-        id: firebaseAuth.currentUser!.uid,
-        profileImg: profileImg);
+    if (img != null) {
+      await firebaseAuth.createUserWithEmailAndPassword(
+          email: userModel.email, password: password);
+      String profileImg =
+          await uploadImages(image: img, name: firebaseAuth.currentUser!.uid);
+      await uploadUserDetails(
+          userModel: userModel,
+          id: firebaseAuth.currentUser!.uid,
+          profileImg: profileImg);
+    } else {
+      await firebaseAuth.createUserWithEmailAndPassword(
+          email: userModel.email, password: password);
+      await uploadUserDetails(
+          userModel: userModel,
+          id: firebaseAuth.currentUser!.uid,
+          profileImg: '');
+    }
   }
 
-  Future<void> forgetPassword(String email) async {
-    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-  }
-
-  Future<bool> login({
+  Future<String?> login({
     required String email,
     required String password,
   }) async {
     try {
-      UserModel? staffModel = await isUser(email);
-      if (staffModel != null) {
-        LocalStorage.saveString(key: 'role', value: staffModel.type);
-        await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
-        return true;
+      UserModel? userModel = await isUser(email);
+      if (userModel != null) {
+        if (userModel.isApproved == false) {
+          return 'You are not approved by admin';
+        }
+        if (userModel.isBlocked == true) {
+          return 'You are blocked by admin';
+        }
+        if (userModel.isApproved == true && userModel.isBlocked == false) {
+          LocalStorage.saveString(key: 'role', value: userModel.type);
+          await FirebaseAuth.instance
+              .signInWithEmailAndPassword(email: email, password: password);
+        }
       } else {
         log('else');
-        return false;
+        return 'Not Found';
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        // snack(context, 'No user found for that email.', info: false);
         throw Exception('No user found for that email.');
       } else if (e.code == 'wrong-password') {
         throw Exception('Invalid password.');
       }
     }
-    return false;
+  }
+
+  Future<void> forgetPassword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
   Future<void> uploadUserDetails(

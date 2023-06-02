@@ -71,22 +71,34 @@ class _LoginViewState extends State<LoginView> {
                   onTap: () async {
                     try {
                       if (_formKey.currentState!.validate()) {
-                        bool isUserLogin = await AuthRepo.instance.login(
-                            email: emailController.text,
-                            password: passwordController.text);
+                        String? loginResponse = await AuthRepo.instance.login(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                        String role = LocalStorage.getString(key: 'role');
+                        if (!mounted) return;
 
-                        if (isUserLogin == false && mounted) {
-                          snack(context, 'Invalid Email or Password',
+                        if (loginResponse == 'Error') {
+                          snack(context, 'An error occurred during login.',
                               info: false);
-                        } else {
-                          String role = LocalStorage.getString(key: 'role');
-                          if (role == 'User') {
-                            replace(context, const UserDashboard());
-                          } else if (role == 'Rider') {
-                            replace(context, const RiderDashboard());
-                          } else {
-                            replace(context, const ShopKeeperDashboard());
-                          }
+                        } else if (loginResponse == 'Not Found') {
+                          snack(context, 'Invalid Email or Password.',
+                              info: false);
+                        } else if (loginResponse ==
+                            'You are not approved by admin') {
+                          snack(context, 'You are not approved by admin.',
+                              info: false);
+                        } else if (loginResponse ==
+                            'You are blocked by admin') {
+                          snack(context, 'You are blocked by admin.',
+                              info: false);
+                        } else if (role == 'User') {
+                          replace(context, const UserDashboard());
+                        } else if (role == 'Rider') {
+                          replace(context, const RiderDashboard());
+                        } else if (role == 'Shop Keeper') {
+                          print('Shop Keeper');
+                          replace(context, const ShopKeeperDashboard());
                         }
                       }
                     } catch (e) {

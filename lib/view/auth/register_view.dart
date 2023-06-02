@@ -157,11 +157,6 @@ class _RegisterViewState extends State<RegisterView> {
                               Provider.of<MapState>(context, listen: false);
                           try {
                             if (formKey.currentState!.validate()) {
-                              if (registerState.selectImage == null) {
-                                snack(context, 'Please select image',
-                                    info: false);
-                                return;
-                              }
                               if (registerState.selectedType == null) {
                                 snack(context, 'Please select type',
                                     info: false);
@@ -206,7 +201,7 @@ class _RegisterViewState extends State<RegisterView> {
                               await AuthRepo.instance.createUser(
                                 userModel: userModel,
                                 password: passwordController.text,
-                                img: registerState.selectImage!,
+                                img: registerState.selectImage,
                               );
                               if (!mounted) return;
                               registerState.selectImageFile(null);
