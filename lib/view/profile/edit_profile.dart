@@ -184,7 +184,7 @@ class _EditProfileViewState extends State<EditProfileView> {
           CircleAvatar(
             radius: 58,
             child: Text(
-              userProvider.userModel.name.substring(0, 1),
+              userProvider.userModel.name.substring(0, 1).toUpperCase(),
               style: const TextStyle(fontSize: 32),
             ),
           ),
