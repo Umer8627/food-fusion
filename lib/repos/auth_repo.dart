@@ -69,6 +69,7 @@ class AuthRepo {
         throw Exception('Invalid password.');
       }
     }
+    return null;
   }
 
   Future<void> forgetPassword(String email) async {
