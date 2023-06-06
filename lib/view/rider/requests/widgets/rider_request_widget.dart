@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -36,16 +38,21 @@ class _RiderRequestWidgetState extends State<RiderRequestWidget> {
 
   Future<void> getUserShopInfo(
       {required String userId, required String shopId}) async {
-    final userFuture = UserRepo.instance.getUserById(userId);
-    final shopFuture = UserRepo.instance.getUserById(shopId);
+    try {
+      log("getUserShopInfo ID: $userId, $shopId");
 
-    final List<UserModel> results = await Future.wait([userFuture, shopFuture]);
+      final userFuture =  UserRepo.instance.getUserById(userId);
 
-    userModel = results[0];
-    shopModel = results[1];
-    print('userModel: $userModel');
-    print('shopModel: $shopModel');
-    setState(() {});
+      final shopFuture = UserRepo.instance.getUserById(shopId);
+
+       List<UserModel> results =
+          await Future.wait([userFuture, shopFuture]);
+
+      userModel = results[0];
+      shopModel = results[0];
+    } catch (e) {
+      print('getUserShopInfo: $e');
+    }
   }
 
   @override

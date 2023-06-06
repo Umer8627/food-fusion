@@ -11,7 +11,7 @@ import '../../../../repos/user_repo.dart';
 
 class OrderDetailsWidget extends StatefulWidget {
   final OrderModel order;
- 
+
   const OrderDetailsWidget({super.key, required this.order});
 
   @override
@@ -134,50 +134,74 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
           widget.order.riderId.isNotEmpty
               ? const SizedBox(height: 16)
               : const SizedBox.shrink(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              'Items:',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+          if (widget.order.isOrderFromRequest == false)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                'Items:',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.order.items?.length,
-            itemBuilder: (context, index) {
-              final item = widget.order.items![index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Card(
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 21,
-                      backgroundImage: NetworkImage(
-                        item.image,
+          if (widget.order.isOrderFromRequest == false)
+            const SizedBox(height: 8),
+          if (widget.order.isOrderFromRequest == false)
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.order.items?.length,
+              itemBuilder: (context, index) {
+                final item = widget.order.items![index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Card(
+                    elevation: 6,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 21,
+                        backgroundImage: NetworkImage(
+                          item.image,
+                        ),
                       ),
+                      title: Text(
+                        item.name,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 13, fontWeight: FontWeight.w700),
+                      ),
+                      // subtitle: Text(item.description),
+                      trailing: Text('${item.quantity}x ${item.price}'),
                     ),
-                    title: Text(
-                      item.name,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
-                    ),
-                    // subtitle: Text(item.description),
-                    trailing: Text('${item.quantity}x ${item.price}'),
                   ),
+                );
+              },
+            ),
+          if (widget.order.isOrderFromRequest == true)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-          ),
+                child: ListTile(
+                  title: Text(
+                    widget.order.productRequestModel?.selectedCategory ?? '',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+                  ),
+                  subtitle: Text(
+                      widget.order.productRequestModel?.selectedSubCategory ??
+                          ''),
+                  // trailing: Text('${item.quantity}x ${item.price}'),
+                ),
+              ),
+            ),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(16),
@@ -232,8 +256,9 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                     ),
                   ],
                 ),
-             widget.order.orderEnum.index == OrderEnum.delivered.index
-                    ?    const SizedBox(height: 5):const SizedBox.shrink(),
+                widget.order.orderEnum.index == OrderEnum.delivered.index
+                    ? const SizedBox(height: 5)
+                    : const SizedBox.shrink(),
                 widget.order.orderEnum.index == OrderEnum.delivered.index
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -256,7 +281,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                           ),
                         ],
                       )
-                    :const SizedBox.shrink(),
+                    : const SizedBox.shrink(),
               ],
             ),
           ),

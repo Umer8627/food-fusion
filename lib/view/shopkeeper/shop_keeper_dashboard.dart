@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food_fusion/utills/snippets.dart';
+import 'package:food_fusion/view/shopkeeper/view_user_request/shop_view_user_request.dart';
 import 'package:food_fusion/view/widgets/custom_app_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +48,7 @@ class _ShopKeeperDashboardState extends State<ShopKeeperDashboard> {
     List<Widget> pages = [
       const ShopHomeview(),
       const MenuView(),
+      const ShopKeeperUserRequestView(),
       const EditProfileView()
     ];
 
@@ -80,6 +82,8 @@ class _ShopKeeperDashboardState extends State<ShopKeeperDashboard> {
                 icon: Icon(FontAwesomeIcons.box, size: 30), label: 'Order'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.cubesStacked), label: 'Menu'),
+            BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.hand), label: 'Request'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.user), label: 'Profile'),
           ],

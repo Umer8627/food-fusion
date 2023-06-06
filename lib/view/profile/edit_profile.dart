@@ -165,32 +165,43 @@ class _EditProfileViewState extends State<EditProfileView> {
     );
   }
 
-  Widget selectImage(
-      {required String imgUrl, required UserState userProvider}) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        userProvider.selectImage == null
-            ? CircleAvatar(
-                radius: 58,
-                backgroundImage: NetworkImage(imgUrl),
-              )
-            : CircleAvatar(
-                backgroundImage: FileImage(userProvider.selectImage!),
-                radius: 58),
-        Positioned(
-          bottom: -5,
-          right: -5,
-          child: SizedBox(
-            height: 50,
-            width: 50,
-            child: Card(
-              shape: getRoundShape(),
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                icon: const Icon(Icons.camera_alt),
-                onPressed: () {
-                  showDialogOf(context, ImageDialogWidget(
+ Widget selectImage({required String imgUrl, required UserState userProvider}) {
+  return Stack(
+    clipBehavior: Clip.none,
+    children: [
+      if (userProvider.selectImage == null && imgUrl.isNotEmpty)
+        CircleAvatar(
+          radius: 58,
+          backgroundImage: NetworkImage(imgUrl),
+        )
+      else if (userProvider.selectImage != null)
+        CircleAvatar(
+          backgroundImage: FileImage(userProvider.selectImage!),
+          radius: 58,
+        )
+      else
+        CircleAvatar(
+          radius: 58,
+          child: Text(
+            userProvider.userModel.name.substring(0, 1),
+            style:const  TextStyle(fontSize: 32),
+          ),
+        ),
+      Positioned(
+        bottom: -5,
+        right: -5,
+        child: SizedBox(
+          height: 50,
+          width: 50,
+          child: Card(
+            shape: getRoundShape(),
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              icon: const Icon(Icons.camera_alt),
+              onPressed: () {
+                showDialogOf(
+                  context,
+                  ImageDialogWidget(
                     onClick: (ref) async {
                       Navigator.of(context).pop();
                       if (ref.toString().contains("camera")) {
@@ -202,13 +213,15 @@ class _EditProfileViewState extends State<EditProfileView> {
                       Provider.of<UserState>(context, listen: false)
                           .selectImageFile(uploadImage!);
                     },
-                  ));
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
+
 }

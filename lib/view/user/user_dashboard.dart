@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:food_fusion/view/user/request/user_request_view.dart';
 import 'package:food_fusion/view/widgets/custom_app_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +46,7 @@ class _UserDashboardState extends State<UserDashboard> {
     List<Widget> pages = [
       const UserHomeView(),
       const UserOrdersView(),
-      // Container(),
+      const UserRequestView(),
       const EditProfileView()
     ];
 
@@ -79,8 +80,8 @@ class _UserDashboardState extends State<UserDashboard> {
                 icon: Icon(FontAwesomeIcons.house, size: 30), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.box, size: 30), label: 'Orders'),
-            // BottomNavigationBarItem(
-            //     icon: Icon(FontAwesomeIcons.shop), label: 'Shops'),
+            BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.hand), label: 'Requests'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.user), label: 'Profile'),
           ],

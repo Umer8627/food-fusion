@@ -44,3 +44,48 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+Map<String,dynamic> categories={
+  "Biscuits":[
+    'Biscuits',
+    'Cookies',
+    'Wafers',
+    'Rusk',
+    'Khari',
+    'Toast',
+    'Cream Biscuits',
+  ],
+  "Bread":[
+    'Bread',
+    'Buns',
+    'Pav',
+    'Pizza Base',
+    'Bread Sticks',
+    'Bread Crumbs',
+    'Bread Rolls',
+    'Bread Sticks',
+    'Bread Crumbs',
+    'Bread Rolls',
+  
+  ],
+  "Cakes":[
+    'Cakes',
+    'Muffins',
+    'Cup Cakes',
+    'Rusk',
+    'Khari',
+    'Toast',
+    'Cream Biscuits',
+  
+  ],
+  "Chips":[
+    'Chips',
+    'Wafers',
+    'Rusk',
+    'Khari',
+    'Toast',
+    'Cream Biscuits',
+  
+  
+  ],
+};

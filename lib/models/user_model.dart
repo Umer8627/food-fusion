@@ -81,15 +81,29 @@ class UserModel {
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
+    print('uid---------------------- ${map['uid']}');
+    print('name---------------------- ${map['name']}');
+    print('email---------------------- ${map['email']}');
+    print('phoneNo---------------------- ${map['phoneNo']}');
+    print('address---------------------- ${map['address']}');
+    print('type---------------------- ${map['type']}');
+    print('imageUrl---------------------- ${map['imageUrl']}');
+    print('cnic---------------------- ${map['cnic']}');
+    print('geoFirePoint---------------------- ${map['geoFirePoint']}');
+    print('createdAt---------------------- ${map['createdAt']}');
+    print('isApproved---------------------- ${map['isApproved']}');
+    print('isBlocked---------------------- ${map['isBlocked']}');
+    print('shopName---------------------- ${map['shopName']}');
+    
     return UserModel(
-      uid: map['uid'] as String,
-      name: map['name'] as String,
-      email: map['email'] as String,
-      phoneNo: map['phoneNo'] as String,
-      address: map['address'] as String,
-      type: map['type'] as String,
-      imageUrl: map['imageUrl'] as String,
-      cnic: map['cnic'] as String,
+      uid: map['uid'] ??'',
+      name: map['name'] ??'',
+      email: map['email'] ??'',
+      phoneNo: map['phoneNo'] ??'',
+      address: map['address'] ??'',
+      type: map['type'] ??'',
+      imageUrl: map['imageUrl'] ??'',
+      cnic: map['cnic'] ??'',
       geoFirePoint: GeoFirePoint(
         map['geoFirePoint']['geopoint'].latitude,
         map['geoFirePoint']['geopoint'].longitude,
