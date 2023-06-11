@@ -1,8 +1,7 @@
 import 'package:easy_pick/models/order_model.dart';
 import 'package:easy_pick/repos/order_repo.dart';
+import 'package:easy_pick/view/shopkeeper/orders/widgets/shop_order_detail_widget.dart';
 import 'package:flutter/material.dart';
-
-import 'widgets/shop_order_detail_widget.dart';
 
 class ShopOrderPendingTab extends StatefulWidget {
   const ShopOrderPendingTab({super.key});

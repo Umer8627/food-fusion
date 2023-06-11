@@ -1,4 +1,3 @@
-import 'package:easy_pick/states/cart_state.dart';
 import 'package:easy_pick/states/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/color_constant.dart';
+import '../../states/cart_state.dart';
 import '../../utills/snippets.dart';
 import '../user/cart/cart_view.dart';
 

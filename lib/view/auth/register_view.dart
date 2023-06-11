@@ -4,6 +4,7 @@ import 'package:easy_pick/states/register_state.dart';
 import 'package:easy_pick/view/auth/components/select_image_widget.dart';
 import 'package:easy_pick/view/auth/map_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:geoflutterfire2/geoflutterfire2.dart';
@@ -110,6 +111,20 @@ class _RegisterViewState extends State<RegisterView> {
                         controller: cnicController,
                         hintText: "XXXXX-XXXXXXX-X",
                         validator: cnicValidation,
+                        inputFormatters: [
+                          // Blacklist numbers
+                          LengthLimitingTextInputFormatter(
+                              15), // Limit to 10 characters
+                        ],
+                        inputType: TextInputType.number,
+                        onChange: (value) {
+                          setState(() {
+                            cnicController.text = formatCnic(value);
+                            cnicController.selection =
+                                TextSelection.fromPosition(TextPosition(
+                                    offset: cnicController.text.length));
+                          });
+                        },
                       ),
                       const SizedBox(height: 22),
                       CustomTextField(
@@ -247,6 +262,24 @@ class _RegisterViewState extends State<RegisterView> {
       return 'Password do not match';
     }
     return null;
+  }
+
+  String formatCnic(String cnic) {
+    String formattedCNIC = '';
+    int dashCount = 0;
+    for (int i = 0; i < cnic.length; i++) {
+      if (cnic[i] == '-') {
+        continue;
+      }
+
+      if (dashCount == 5 || dashCount == 12) {
+        formattedCNIC += '-';
+      }
+      formattedCNIC += cnic[i];
+      dashCount++;
+    }
+
+    return formattedCNIC;
   }
 
   String? validatePhoneNumber(String? phoneNumber) {

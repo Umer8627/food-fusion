@@ -1,16 +1,20 @@
-import 'package:easy_pick/models/offer_model.dart';
+import 'dart:developer';
+
 import 'package:easy_pick/models/request_model.dart';
 import 'package:easy_pick/models/user_model.dart';
-import 'package:easy_pick/repos/offer_repo.dart';
 import 'package:easy_pick/repos/request_repo.dart';
 import 'package:easy_pick/repos/user_repo.dart';
 import 'package:easy_pick/utills/snippets.dart';
-import 'package:easy_pick/view/widgets/loader_button.dart';
-import 'package:easy_pick/view/widgets/show_status_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../../../constants/color_constant.dart';
+import '../../../../models/offer_model.dart';
+import '../../../../repos/offer_repo.dart';
+import '../../../widgets/loader_button.dart';
+import '../../../widgets/show_status_widget.dart';
 import '../offers/create_offer_popup.dart';
 
 class RiderRequestWidget extends StatefulWidget {
@@ -33,16 +37,20 @@ class _RiderRequestWidgetState extends State<RiderRequestWidget> {
 
   Future<void> getUserShopInfo(
       {required String userId, required String shopId}) async {
-    final userFuture = UserRepo.instance.getUserById(userId);
-    final shopFuture = UserRepo.instance.getUserById(shopId);
+    try {
+      log("getUserShopInfo ID: $userId, $shopId");
 
-    final List<UserModel> results = await Future.wait([userFuture, shopFuture]);
+      final userFuture = UserRepo.instance.getUserById(userId);
 
-    userModel = results[0];
-    shopModel = results[1];
-    print('userModel: $userModel');
-    print('shopModel: $shopModel');
-    setState(() {});
+      final shopFuture = UserRepo.instance.getUserById(shopId);
+
+      List<UserModel> results = await Future.wait([userFuture, shopFuture]);
+
+      userModel = results[0];
+      shopModel = results[0];
+    } catch (e) {
+      print('getUserShopInfo: $e');
+    }
   }
 
   @override

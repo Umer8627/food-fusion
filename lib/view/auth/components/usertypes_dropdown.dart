@@ -12,8 +12,6 @@ class UsertypesDropdown extends StatelessWidget {
     'Rider',
     'Shop Keeper',
   ];
-
-  get textFieldColor => null;
   @override
   Widget build(BuildContext context) {
     RegisterState userState = Provider.of<RegisterState>(context);

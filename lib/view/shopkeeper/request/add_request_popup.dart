@@ -1,5 +1,4 @@
 import 'package:easy_pick/models/order_model.dart';
-import 'package:easy_pick/repos/request_repo.dart';
 import 'package:easy_pick/states/user_state.dart';
 import 'package:easy_pick/utills/snippets.dart';
 import 'package:easy_pick/view/widgets/custom_textfield.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
 import '../../../models/request_model.dart';
+import '../../../repos/request_repo.dart';
 import '../../widgets/loader_button.dart';
 
 class AddRequestPopup extends StatefulWidget {
@@ -32,7 +32,6 @@ class _AddRequestPopupState extends State<AddRequestPopup> {
     // TODO: implement initState
     super.initState();
     priceController.text = '100';
-    print(priceController.text);
   }
 
   @override
@@ -72,9 +71,9 @@ class _AddRequestPopupState extends State<AddRequestPopup> {
                               labelText: 'Offer price',
                               hintText: 'Offer price',
                               controller: priceController,
-                              readOnly: true,
                               maxLine: null,
                               inputType: TextInputType.number,
+                              readOnly: true,
                             ),
                           ),
                         ],
@@ -96,7 +95,7 @@ class _AddRequestPopupState extends State<AddRequestPopup> {
                               shopId: FirebaseAuth.instance.currentUser!.uid,
                               docId: "",
                               userId: widget.orderModel.userId,
-                              price: '100',
+                              price: priceController.text,
                               radius: int.parse(radiusController.text),
                               discription: descriptionController.text,
                               geoFirePoint: context

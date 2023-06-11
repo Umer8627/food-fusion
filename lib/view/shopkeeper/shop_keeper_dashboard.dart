@@ -17,6 +17,7 @@ import '../../constants/color_constant.dart';
 import '../profile/edit_profile.dart';
 import 'orders/shop_order_view.dart';
 import 'menu/menu_view.dart';
+import 'view_user_request/shop_view_user_request.dart';
 
 class ShopKeeperDashboard extends StatefulWidget {
   const ShopKeeperDashboard({super.key});
@@ -48,6 +49,7 @@ class _ShopKeeperDashboardState extends State<ShopKeeperDashboard> {
     List<Widget> pages = [
       const ShopHomeview(),
       const MenuView(),
+      const ShopKeeperUserRequestView(),
       const EditProfileView()
     ];
 
@@ -81,6 +83,8 @@ class _ShopKeeperDashboardState extends State<ShopKeeperDashboard> {
                 icon: Icon(FontAwesomeIcons.box, size: 30), label: 'Order'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.cubesStacked), label: 'Menu'),
+            BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.hand), label: 'Request'),
             BottomNavigationBarItem(
                 icon: Icon(FontAwesomeIcons.user), label: 'Profile'),
           ],

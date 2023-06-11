@@ -2,12 +2,12 @@ import 'package:easy_pick/view/user/order/user_accepted_order_tab.dart';
 import 'package:easy_pick/view/user/order/user_arrived_order_tab.dart';
 import 'package:easy_pick/view/user/order/user_assigned_order_tab.dart';
 import 'package:easy_pick/view/user/order/user_delivered_order_tab.dart';
-import 'package:easy_pick/view/user/order/user_pending_order_tab.dart';
 import 'package:easy_pick/view/user/order/user_rejected_order_tab.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/color_constant.dart';
 import '../../../utills/snippets.dart';
+import 'user_pending_order_tab.dart';
 
 class UserOrdersView extends StatefulWidget {
   const UserOrdersView({super.key});

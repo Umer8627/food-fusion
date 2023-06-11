@@ -82,6 +82,8 @@ class CartState extends ChangeNotifier {
         orderDeliveredDate: 0,
         riderId: '',
         userId: FirebaseAuth.instance.currentUser!.uid,
+        isOrderFromRequest: false,
+        productRequestModel: null,
       );
 
       // Save order document to Firestore

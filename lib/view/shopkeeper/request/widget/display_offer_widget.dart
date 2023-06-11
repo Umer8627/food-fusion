@@ -1,17 +1,17 @@
 import 'package:easy_pick/constants/color_constant.dart';
-import 'package:easy_pick/enums/order_enums.dart';
 import 'package:easy_pick/models/offer_model.dart';
 import 'package:easy_pick/models/order_model.dart';
 import 'package:easy_pick/models/user_model.dart';
 import 'package:easy_pick/repos/offer_repo.dart';
 import 'package:easy_pick/repos/order_repo.dart';
 import 'package:easy_pick/utills/snippets.dart';
-import 'package:easy_pick/view/widgets/loader_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../enums/order_enums.dart';
 import '../../../../models/request_model.dart';
 import '../../../../repos/user_repo.dart';
+import '../../../widgets/loader_button.dart';
 
 class DisplayOffers extends StatefulWidget {
   final OfferModel offerModel;

@@ -1,30 +1,31 @@
-import 'package:easy_pick/models/offer_model.dart';
-import 'package:easy_pick/states/user_state.dart';
-import 'package:easy_pick/view/widgets/custom_textfield.dart';
-import 'package:easy_pick/view/widgets/loader_button.dart';
+import 'package:easy_pick/models/product_request_model.dart';
+import 'package:easy_pick/utills/snippets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
-import '../../../../models/request_model.dart';
-import '../../../../repos/offer_repo.dart';
-import '../../../../utills/snippets.dart';
 
-class CreateOfferPopup extends StatefulWidget {
-  final RequestModel requestModel;
-  const CreateOfferPopup({super.key, required this.requestModel});
+import '../../../../models/request_model.dart';
+import '../../../models/shop_offer_model.dart';
+import '../../../repos/product_repo.dart';
+import '../../widgets/custom_textfield.dart';
+import '../../widgets/loader_button.dart';
+
+class ShopCreateOfferPopup extends StatefulWidget {
+  final ProductRequestModel requestModel;
+  const ShopCreateOfferPopup({super.key, required this.requestModel});
 
   @override
-  State<CreateOfferPopup> createState() => _CreateOfferPopupState();
+  State<ShopCreateOfferPopup> createState() => _ShopCreateOfferPopupState();
 }
 
-class _CreateOfferPopupState extends State<CreateOfferPopup> {
+class _ShopCreateOfferPopupState extends State<ShopCreateOfferPopup> {
   final actualPriceController = TextEditingController();
   final priceController = TextEditingController();
   @override
   void initState() {
     super.initState();
-    priceController.text = '100';
     actualPriceController.text = widget.requestModel.price.toString();
   }
 
@@ -86,18 +87,18 @@ class _CreateOfferPopupState extends State<CreateOfferPopup> {
 
                                 return;
                               }
-                              OfferModel offerModel = OfferModel(
-                                  orderId: widget.requestModel.orderId,
+                              ShopOfferModel offerModel = ShopOfferModel(
+                                  orderId: '',
                                   docId: '',
                                   createdAt:
                                       DateTime.now().microsecondsSinceEpoch,
-                                  riderId:
-                                      context.read<UserState>().userModel.uid,
+                                  shopId:
+                                      FirebaseAuth.instance.currentUser!.uid,
                                   price: priceController.text,
                                   reqId: widget.requestModel.docId,
                                   isAccepted: false,
                                   isRejected: false);
-                              await OfferRepo.instance
+                              await ProductRepo.instance
                                   .createOffer(widget.requestModel, offerModel);
                               if (!mounted) return;
                               pop(context);

@@ -21,6 +21,7 @@ class CustomTextField extends StatefulWidget {
   final int? maxLine;
   final Color? fillerColor;
   final List<TextInputFormatter>? inputFormatters;
+  final void Function(String)? onChange;
 
   CustomTextField({
     Key? key,
@@ -41,6 +42,7 @@ class CustomTextField extends StatefulWidget {
     this.inputType,
     this.suffixIcon2,
     this.inputFormatters,
+    this.onChange,
   }) : super(key: key);
 
   @override
@@ -65,6 +67,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       validator: widget.validator,
       obscureText: widget.isVisible,
       inputFormatters: widget.inputFormatters,
+      onChanged: widget.onChange,
       decoration: InputDecoration(
         labelText: widget.labelText,
         border: OutlineInputBorder(

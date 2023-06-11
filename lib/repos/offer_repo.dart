@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_pick/models/offer_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../models/offer_model.dart';
 import '../models/request_model.dart';
 
 class OfferRepo {

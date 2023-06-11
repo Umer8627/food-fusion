@@ -1,6 +1,6 @@
-import 'package:easy_pick/constants/color_constant.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/color_constant.dart';
 import '../../utills/snippets.dart';
 
 class LoaderButtonIcon extends StatefulWidget {

@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:easy_pick/components/dialog_widget.dart';
 import 'package:easy_pick/states/register_state.dart';
-import 'package:easy_pick/utills/snippets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
+import '../../../utills/snippets.dart';
 
 class SelectImageWidget extends StatelessWidget {
   const SelectImageWidget({super.key});

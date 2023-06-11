@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
-
 import '../enums/order_enums.dart';
 import 'item_model.dart';
+import 'product_request_model.dart';
 
 class OrderModel {
   final String orderId;
@@ -11,20 +11,24 @@ class OrderModel {
   final String totalAmount;
   final List<ItemModel>? items;
   final OrderEnum orderEnum;
+  final ProductRequestModel? productRequestModel;
   final int orderPlacedDate;
   final int orderDeliveredDate;
   String cancelReason;
+  final bool isOrderFromRequest;
   OrderModel({
     required this.orderId,
     required this.userId,
     required this.shopId,
     required this.riderId,
     required this.totalAmount,
-    required this.items,
+    this.items,
+    this.productRequestModel,
     required this.orderEnum,
     required this.orderPlacedDate,
     required this.orderDeliveredDate,
     required this.cancelReason,
+    required this.isOrderFromRequest,
   });
 
   OrderModel copyWith({
@@ -38,6 +42,8 @@ class OrderModel {
     int? orderPlacedDate,
     int? orderDeliveredDate,
     String? cancelReason,
+    bool? isOrderFromRequest,
+    ProductRequestModel? productRequestModel,
   }) {
     return OrderModel(
       orderId: orderId ?? this.orderId,
@@ -50,6 +56,8 @@ class OrderModel {
       orderPlacedDate: orderPlacedDate ?? this.orderPlacedDate,
       orderDeliveredDate: orderDeliveredDate ?? this.orderDeliveredDate,
       cancelReason: cancelReason ?? this.cancelReason,
+      isOrderFromRequest: isOrderFromRequest ?? this.isOrderFromRequest,
+      productRequestModel: productRequestModel ?? this.productRequestModel,
     );
   }
 
@@ -65,11 +73,12 @@ class OrderModel {
       'orderPlacedDate': orderPlacedDate,
       'orderDeliveredDate': orderDeliveredDate,
       'cancelReason': cancelReason,
+      'isOrderFromRequest': isOrderFromRequest,
+      'productRequestModel': productRequestModel?.toMap(),
     };
   }
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
-
     return OrderModel(
       orderId: map['orderId'] ?? '',
       userId: map['userId'] ?? '',
@@ -85,6 +94,11 @@ class OrderModel {
       orderPlacedDate: map['orderPlacedDate'] as int? ?? 0,
       orderDeliveredDate: map['orderDeliveredDate'] as int? ?? 0,
       cancelReason: map['cancelReason'] ?? '',
+      isOrderFromRequest: map['isOrderFromRequest'] ?? false,
+      productRequestModel: map['productRequestModel'] == null
+          ? null
+          : ProductRequestModel.fromMap(
+              map['productRequestModel'] as Map<String, dynamic>),
     );
   }
   String get formattedOrderPlacedDate {

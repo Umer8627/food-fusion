@@ -1,9 +1,10 @@
 import 'dart:developer';
 
-import 'package:easy_pick/models/order_model.dart';
-import 'package:easy_pick/repos/order_repo.dart';
 import 'package:easy_pick/view/rider/orders/widgets/rider_order_details_widget.dart';
 import 'package:flutter/material.dart';
+
+import '../../../models/order_model.dart';
+import '../../../repos/order_repo.dart';
 
 class RiderPickedOrderTab extends StatefulWidget {
   const RiderPickedOrderTab({super.key});

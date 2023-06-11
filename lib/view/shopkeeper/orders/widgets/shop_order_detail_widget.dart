@@ -140,23 +140,52 @@ class _ShopOrderDetailViewState extends State<ShopOrderDetailView> {
           widget.order.riderId.isNotEmpty
               ? const SizedBox(height: 16)
               : const SizedBox.shrink(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              'Items:',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+          if (widget.order.isOrderFromRequest == false)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                'Items:',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+              ),
             ),
-          ),
-          // const SizedBox(height: 8),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.order.items?.length,
-            itemBuilder: (context, index) {
-              final item = widget.order.items![index];
-              return Padding(
+          if (widget.order.isOrderFromRequest == false)
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.order.items?.length,
+              itemBuilder: (context, index) {
+                final item = widget.order.items![index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Card(
+                    elevation: 6,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 21,
+                        backgroundImage: NetworkImage(
+                          item.image,
+                        ),
+                      ),
+                      title: Text(
+                        item.name,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 13, fontWeight: FontWeight.w700),
+                      ),
+                      // subtitle: Text(item.description),
+                      trailing: Text('${item.quantity}x ${item.price}'),
+                    ),
+                  ),
+                );
+              },
+            ),
+          if (widget.order.isOrderFromRequest == true)
+            if (widget.order.isOrderFromRequest == true)
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Card(
                   elevation: 6,
@@ -164,26 +193,20 @@ class _ShopOrderDetailViewState extends State<ShopOrderDetailView> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 21,
-                      backgroundImage: NetworkImage(
-                        item.image,
-                      ),
-                    ),
                     title: Text(
-                      item.name,
+                      widget.order.productRequestModel?.selectedCategory ?? '',
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall
                           ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
                     ),
-                    // subtitle: Text(item.description),
-                    trailing: Text('${item.quantity}x ${item.price}'),
+                    subtitle: Text(
+                        widget.order.productRequestModel?.selectedSubCategory ??
+                            ''),
+                    // trailing: Text('${item.quantity}x ${item.price}'),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(16),
@@ -267,7 +290,6 @@ class _ShopOrderDetailViewState extends State<ShopOrderDetailView> {
               ],
             ),
           ),
-
           if (widget.order.orderEnum == OrderEnum.pending)
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -307,7 +329,6 @@ class _ShopOrderDetailViewState extends State<ShopOrderDetailView> {
                 ],
               ),
             ),
-
           if (widget.order.orderEnum == OrderEnum.accepted)
             StreamBuilder<RequestModel?>(
                 stream: RequestRepo.instance

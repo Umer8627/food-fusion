@@ -1,8 +1,8 @@
-import 'package:easy_pick/view/user/order/widgets/order_details_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/order_model.dart';
 import '../../../repos/order_repo.dart';
+import 'widgets/order_details_widget.dart';
 
 class UserRejectedOrderTab extends StatefulWidget {
   const UserRejectedOrderTab({super.key});

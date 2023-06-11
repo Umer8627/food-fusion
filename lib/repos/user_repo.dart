@@ -50,7 +50,7 @@ class UserRepo {
     return _userCollection
         .doc(id)
         .get()
-        .then((value) => UserModel.fromMap(value.data()!));
+        .then((value) => UserModel.fromMap(value.data() as dynamic));
   }
 
   Future<String?> updateProfile(

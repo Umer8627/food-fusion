@@ -1,14 +1,17 @@
 import 'dart:developer';
+
 import 'package:easy_pick/constants/color_constant.dart';
 import 'package:easy_pick/states/register_state.dart';
 import 'package:easy_pick/utills/snippets.dart';
+import 'package:easy_pick/view/auth/components/select_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:provider/provider.dart';
+
 import '../../../models/item_model.dart';
 import '../../../repos/item_repo.dart';
 import '../../../states/user_state.dart';
-import '../../auth/components/select_image_widget.dart';
 import '../../widgets/custom_textfield.dart';
 import '../../widgets/loader_button.dart';
 
@@ -77,7 +80,7 @@ class _AddItemPopupState extends State<AddItemPopup> {
                       CustomTextField(
                         maxLine: 1,
                         labelText: 'Price',
-                        prefixIcon: FontAwesomeIcons.rupeeSign,
+                        prefixIcon: Icons.price_check,
                         controller: itemPriceController,
                         hintText: "Price",
                         validator: mandatoryValidator,

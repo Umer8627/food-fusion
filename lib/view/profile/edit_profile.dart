@@ -3,6 +3,7 @@ import 'package:easy_pick/states/user_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geoflutterfire2/geoflutterfire2.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../utills/snippets.dart';
@@ -86,6 +87,26 @@ class _EditProfileViewState extends State<EditProfileView> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: GestureDetector(
                                     onTap: () {
+                                      UserModel _userModel = UserModel(
+                                        address: '',
+                                        cnic: '',
+                                        email: '',
+                                        name: '',
+                                        imageUrl: '',
+                                        phoneNo: '',
+                                        type: '',
+                                        uid: '',
+                                        isApproved: false,
+                                        isBlocked: false,
+                                        createdAt: 0,
+                                        geoFirePoint: GeoFirePoint(0, 0),
+                                      );
+                                      Provider.of<UserState>(context,
+                                              listen: false)
+                                          .setUser(_userModel);
+                                      Provider.of<UserState>(context,
+                                              listen: false)
+                                          .selectImageFile(null);
                                       FirebaseAuth.instance.signOut();
                                       LocalStorage.clear();
                                       Navigator.pushAndRemoveUntil(

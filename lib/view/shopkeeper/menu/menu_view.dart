@@ -1,5 +1,4 @@
 import 'package:easy_pick/repos/item_repo.dart';
-import 'package:easy_pick/utills/snippets.dart';
 import 'package:easy_pick/view/shopkeeper/menu/add_item_popup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../constants/color_constant.dart';
 import '../../../constants/theme_constant.dart';
 import '../../../models/item_model.dart';
+import '../../../utills/snippets.dart';
 
 class MenuView extends StatefulWidget {
   const MenuView({super.key});

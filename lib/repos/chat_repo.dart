@@ -1,12 +1,13 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_pick/enums/message_enums.dart';
 import 'package:easy_pick/models/contact_model.dart';
 import 'package:easy_pick/models/message_model.dart';
 import 'package:easy_pick/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:uuid/uuid.dart';
+
+import '../enums/message_enums.dart';
 
 class ChatRepo {
   static final instance = ChatRepo();

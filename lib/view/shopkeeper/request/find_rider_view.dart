@@ -1,16 +1,18 @@
-import 'package:easy_pick/components/no_data_component.dart';
 import 'package:easy_pick/constants/color_constant.dart';
 import 'package:easy_pick/constants/theme_constant.dart';
+import 'package:easy_pick/enums/order_enums.dart';
 import 'package:easy_pick/models/user_model.dart';
-import 'package:easy_pick/repos/order_repo.dart';
 import 'package:easy_pick/repos/rider_repo.dart';
 import 'package:easy_pick/states/user_state.dart';
 import 'package:easy_pick/view/widgets/custom_app_bar.dart';
 import 'package:easy_pick/view/widgets/loader_button.dart';
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
-import '../../../enums/order_enums.dart';
+
+import '../../../components/no_data_component.dart';
 import '../../../models/order_model.dart';
+import '../../../repos/order_repo.dart';
 import '../../../utills/snippets.dart';
 
 class FindRiderView extends StatefulWidget {

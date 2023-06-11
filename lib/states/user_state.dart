@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:easy_pick/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
@@ -42,6 +43,9 @@ class UserState extends ChangeNotifier {
       selectImage = image;
       notifyListeners();
       log(selectImage!.path);
+    } else {
+      selectImage = null;
+      notifyListeners();
     }
   }
 

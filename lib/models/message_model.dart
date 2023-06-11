@@ -1,4 +1,4 @@
-import '../enums/message_enums.dart';
+import 'package:easy_pick/enums/message_enums.dart';
 
 class Message {
   final String senderId;

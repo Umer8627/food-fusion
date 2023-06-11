@@ -25,12 +25,6 @@ class _LoginViewState extends State<LoginView> {
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
