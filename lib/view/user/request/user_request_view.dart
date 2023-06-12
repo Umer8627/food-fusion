@@ -2,7 +2,6 @@ import 'package:easy_pick/view/user/request/widgets/user_add_request_popup.dart'
 import 'package:easy_pick/view/user/request/widgets/user_request_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../../models/user_model.dart';
 import '../../../repos/product_repo.dart';
 import '../../../repos/user_repo.dart';
