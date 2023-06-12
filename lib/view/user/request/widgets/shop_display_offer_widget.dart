@@ -154,9 +154,9 @@ class _ShopsDisplayOfferState extends State<ShopsDisplayOffer> {
                                     items: [],
                                     orderEnum: OrderEnum.pending,
                                     orderPlacedDate:
-                                        DateTime.now().microsecondsSinceEpoch,
+                                        DateTime.now().millisecondsSinceEpoch,
                                     orderDeliveredDate:
-                                        DateTime.now().microsecondsSinceEpoch,
+                                        DateTime.now().millisecondsSinceEpoch,
                                     cancelReason: '',
                                     isOrderFromRequest: true);
 

@@ -17,7 +17,7 @@ class _UserArrivedOrderTabState extends State<UserArrivedOrderTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder<List<OrderModel>>(
-        stream: OrderRepo.instance.getShopPickedOrder(),
+        stream: OrderRepo.instance.getRiderArrivedOrder(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
