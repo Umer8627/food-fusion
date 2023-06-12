@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_pick/models/user_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../models/product_request_model.dart';
 import '../models/request_model.dart';
 import 'dart:math' show atan2, cos, pi, pow, sin, sqrt;
 
@@ -63,7 +64,7 @@ class RequestRepo {
 
     return firestore
         .collection('requests')
-        // .orderBy('isApproved', descending: false)
+        .where('isApproved', isEqualTo: false)
         .snapshots()
         .distinct()
         .map((event) => event.docs
@@ -78,6 +79,27 @@ class RequestRepo {
               return distance <= radius;
             }).toList());
   }
+  // Stream<List<RequestModel>> getAllRequest(UserModel userModel) {
+  //   final centerLatLng = LatLng(
+  //       userModel.geoFirePoint.latitude, userModel.geoFirePoint.longitude);
+
+  //   return firestore
+  //       .collection('requests')
+  //       // .orderBy('isApproved', descending: false)
+  //       .snapshots()
+  //       .distinct()
+  //       .map((event) => event.docs
+  //               .map((e) => RequestModel.fromMap(e.data()))
+  //               .where((request) {
+  //             LatLng requestLatLng = LatLng(request.geoFirePoint.latitude,
+  //                 request.geoFirePoint.longitude);
+  //             log('requestLatLng: $requestLatLng');
+  //             log('radius: ${request.radius}');
+  //             final radius = request.radius * 1000;
+  //             final distance = calculateDistance(centerLatLng, requestLatLng);
+  //             return distance <= radius;
+  //           }).toList());
+  // }
 
   Stream<RequestModel?> checkIfOrderRequestExist({required String orderId}) {
     return firestore

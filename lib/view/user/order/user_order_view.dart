@@ -2,6 +2,7 @@ import 'package:easy_pick/view/user/order/user_accepted_order_tab.dart';
 import 'package:easy_pick/view/user/order/user_arrived_order_tab.dart';
 import 'package:easy_pick/view/user/order/user_assigned_order_tab.dart';
 import 'package:easy_pick/view/user/order/user_delivered_order_tab.dart';
+import 'package:easy_pick/view/user/order/user_picked_order_tab.dart';
 import 'package:easy_pick/view/user/order/user_rejected_order_tab.dart';
 import 'package:flutter/material.dart';
 
@@ -99,7 +100,7 @@ class _UserOrdersViewState extends State<UserOrdersView>
                     UserPendingOrderTab(),
                     UserAcceptedOrderTab(),
                     UserOrderAssignedTab(),
-                    UserArrivedOrderTab(),
+                    UserPickedTab(),
                     UserArrivedOrderTab(),
                     UserDeliveredOrderTab(),
                     UserRejectedOrderTab(),

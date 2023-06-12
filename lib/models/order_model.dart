@@ -1,7 +1,7 @@
+import 'package:easy_pick/models/product_request_model.dart';
 import 'package:intl/intl.dart';
 import '../enums/order_enums.dart';
 import 'item_model.dart';
-import 'product_request_model.dart';
 
 class OrderModel {
   final String orderId;

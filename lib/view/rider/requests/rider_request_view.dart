@@ -1,13 +1,11 @@
 import 'dart:developer';
-import 'package:easy_pick/models/request_model.dart';
 import 'package:easy_pick/models/user_model.dart';
-import 'package:easy_pick/repos/request_repo.dart';
-import 'package:easy_pick/repos/user_repo.dart';
 import 'package:easy_pick/view/rider/requests/widgets/rider_request_widget.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-
+import '../../../models/request_model.dart';
+import '../../../repos/request_repo.dart';
+import '../../../repos/user_repo.dart';
 import '../../../states/user_state.dart';
 import '../../../utills/snippets.dart';
 
@@ -72,7 +70,6 @@ class _RiderRequestViewState extends State<RiderRequestView> {
                                   if (!snap.hasData) {
                                     return Container();
                                   }
-
                                   return RiderRequestWidget(
                                     requestModel: declineList[index],
                                   );

@@ -78,7 +78,7 @@ class OfferRepo {
     await firestore
         .collection('requests')
         .doc(requestModel.docId)
-        .update({'isAccepted': true, 'riderId': offerModel.riderId});
+        .update({'isApproved': true, 'riderId': offerModel.riderId});
     await firestore
         .collection('requests')
         .doc(requestModel.docId)

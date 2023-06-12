@@ -1,11 +1,11 @@
-import 'package:easy_pick/constants/color_constant.dart';
-import 'package:easy_pick/enums/order_enums.dart';
 import 'package:easy_pick/models/user_model.dart';
-import 'package:easy_pick/repos/order_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../constants/color_constant.dart';
+import '../../../../enums/order_enums.dart';
 import '../../../../models/order_model.dart';
+import '../../../../repos/order_repo.dart';
 import '../../../../repos/user_repo.dart';
 import '../../../widgets/loader_button.dart';
 import '../../../widgets/show_status_widget.dart';

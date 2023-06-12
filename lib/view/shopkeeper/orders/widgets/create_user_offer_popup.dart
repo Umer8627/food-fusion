@@ -1,333 +1,383 @@
-import 'package:easy_pick/constants/color_constant.dart';
-import 'package:easy_pick/models/offer_model.dart';
-import 'package:easy_pick/states/user_state.dart';
-import 'package:easy_pick/view/widgets/custom_textfield.dart';
-import 'package:easy_pick/view/widgets/loader_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+
+import '../../../../constants/color_constant.dart';
+import '../../../../enums/order_enums.dart';
+import '../../../../models/order_model.dart';
 import '../../../../models/request_model.dart';
-import '../../../../repos/offer_repo.dart';
+import '../../../../models/user_model.dart';
+import '../../../../repos/order_repo.dart';
+import '../../../../repos/request_repo.dart';
+import '../../../../repos/user_repo.dart';
 import '../../../../utills/snippets.dart';
+import '../../../widgets/loader_button.dart';
+import '../../../widgets/show_status_widget.dart';
+import '../../request/add_request_popup.dart';
+import '../../request/shop_offer_view.dart';
 
-class CreateProductPricePopup extends StatefulWidget {
-  const CreateProductPricePopup({
-    super.key,
-    this.requestModel,
-  });
+class ShopOrderDetailView extends StatefulWidget {
+  final OrderModel order;
 
-  final RequestModel? requestModel;
+  const ShopOrderDetailView({super.key, required this.order});
 
   @override
-  State<CreateProductPricePopup> createState() =>
-      _CreateProductPricePopupState();
+  State<ShopOrderDetailView> createState() => _ShopOrderDetailViewState();
 }
 
-class _CreateProductPricePopupState extends State<CreateProductPricePopup> {
-  final actualPriceController = TextEditingController();
-  final productPriceController = TextEditingController();
-
-  String? selectProductAvailability;
-
-  List<String> productAvailableList = ['Available', 'Not Available'];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _ShopOrderDetailViewState extends State<ShopOrderDetailView> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Card(
-                elevation: 6,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
+    return Card(
+      elevation: 6,
+      color: backgroundColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                const Icon(FontAwesomeIcons.hashtag, size: 16),
+                const SizedBox(width: 16),
+                Text(
+                  widget.order.orderId,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          FutureBuilder<UserModel>(
+              future: UserRepo.instance.getUserById(widget.order.userId),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const SizedBox(height: 20);
+                }
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         children: [
-                          Expanded(
-                            child: Container(
-                              height: 50,
-                              padding: const EdgeInsets.only(right: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: textFieldColor,
-                              ),
-                              child: DropdownButtonFormField(
-                                elevation: 4,
-                                autofocus: false,
-                                decoration: const InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.only(top: 13, bottom: 0),
-                                  border: InputBorder.none,
-                                  prefixIcon: Icon(
-                                    FontAwesomeIcons.typo3,
-                                    color: greyColor,
-                                    size: 15,
-                                  ),
-                                ),
-                                hint: Text(
-                                  'Select',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(color: Colors.grey),
-                                ),
-                                style: Theme.of(context).textTheme.titleSmall,
-                                dropdownColor: textFieldColor,
-                                iconEnabledColor: primaryColor,
-                                isExpanded: true,
-                                value: selectProductAvailability,
-                                items: productAvailableList.map((value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Text(value),
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectProductAvailability =
-                                        value.toString();
-                                  });
-                                },
-                              ),
+                          const Icon(FontAwesomeIcons.user, size: 16),
+                          const SizedBox(width: 16),
+                          Text(
+                            snapshot.data?.name ?? " ",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          const Icon(FontAwesomeIcons.locationDot, size: 16),
+                          const SizedBox(width: 16),
+                          Flexible(
+                            child: Text(
+                              'Address: ${snapshot.data?.address ?? " "}',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Visibility(
-                        visible: selectProductAvailability == 'Available',
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: CustomTextField(
-                                labelText: 'Product price',
-                                hintText: 'Product price',
-                                controller: productPriceController,
-                                maxLine: null,
-                                inputType: TextInputType.number,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: 300,
-                        child: LoaderButton(
-                          btnText: 'Send Product Price',
-                          onTap: () async {
-                            try {
-                              if (selectProductAvailability!.isNotEmpty &&
-                                  productPriceController.text.isEmpty) {
-                                pop(context);
-                                snack(context, 'Please enter product price',
-                                    info: false);
-
-                                return;
-                              }
-                              OfferModel offerModel = OfferModel(
-                                  orderId: widget.requestModel!.orderId,
-                                  docId: '',
-                                  createdAt:
-                                      DateTime.now().microsecondsSinceEpoch,
-                                  riderId:
-                                      context.read<UserState>().userModel.uid,
-                                  price: productPriceController.text,
-                                  reqId: widget.requestModel!.docId,
-                                  isAccepted: false,
-                                  isRejected: false);
-                              await OfferRepo.instance.createOffer(
-                                  widget.requestModel!, offerModel);
-                              if (!mounted) return;
-                              pop(context);
-                              snack(context, 'Offer send successfully');
-                            } catch (e) {
-                              snack(context, e.toString());
-                              return;
-                            }
-                          },
-                        ),
-                      ),
                     ],
+                  ),
+                );
+              }),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Align(
+                alignment: Alignment.centerRight,
+                child: ShowStatusWidget(
+                    color: widget.order.orderEnum.getColor(),
+                    text: widget.order.orderEnum.getName())),
+          ),
+          const SizedBox(height: 8),
+          if (widget.order.riderId.isNotEmpty)
+            FutureBuilder<UserModel>(
+                future: UserRepo.instance.getUserById(widget.order.riderId),
+                builder: (_, snap) {
+                  if (snap.connectionState == ConnectionState.waiting) {
+                    return const SizedBox(height: 10);
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(snap.data?.imageUrl ?? ''),
+                          radius: 20,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Rider: ${snap.data?.name ?? ''}',
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+          widget.order.riderId.isNotEmpty
+              ? const SizedBox(height: 16)
+              : const SizedBox.shrink(),
+          if (widget.order.isOrderFromRequest == false)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                'Items:',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+              ),
+            ),
+          if (widget.order.isOrderFromRequest == false)
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.order.items?.length,
+              itemBuilder: (context, index) {
+                final item = widget.order.items![index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Card(
+                    elevation: 6,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 21,
+                        backgroundImage: NetworkImage(
+                          item.image,
+                        ),
+                      ),
+                      title: Text(
+                        item.name,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: 13, fontWeight: FontWeight.w700),
+                      ),
+                      // subtitle: Text(item.description),
+                      trailing: Text('${item.quantity}x ${item.price}'),
+                    ),
+                  ),
+                );
+              },
+            ),
+          if (widget.order.isOrderFromRequest == true)
+            if (widget.order.isOrderFromRequest == true)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Card(
+                  elevation: 6,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ListTile(
+                    title: Text(
+                      widget.order.productRequestModel?.selectedCategory ?? '',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+                    ),
+                    subtitle: Text(
+                        widget.order.productRequestModel?.selectedSubCategory ??
+                            ''),
+                    // trailing: Text('${item.quantity}x ${item.price}'),
                   ),
                 ),
               ),
-            ],
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 2,
+                  offset: const Offset(0, -1),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total Payable Amount:',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                    ),
+                    Text(
+                      '${widget.order.totalAmount} Rs',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Order Date:',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                    ),
+                    Text(
+                      widget.order.formattedOrderPlacedDate,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(fontSize: 13, fontWeight: FontWeight.w700),
+                    ),
+                  ],
+                ),
+                widget.order.orderEnum.index == OrderEnum.delivered.index
+                    ? const SizedBox(height: 5)
+                    : const SizedBox.shrink(),
+                widget.order.orderEnum.index == OrderEnum.delivered.index
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Delivered At:',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    fontSize: 15, fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            widget.order.formattedOrderDeliveredDate,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    fontSize: 13, fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      )
+                    : const SizedBox.shrink(),
+              ],
+            ),
           ),
-        ),
+          if (widget.order.orderEnum == OrderEnum.pending)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: LoaderButton(
+                          borderSide: Colors.red,
+                          color: Colors.white,
+                          textColor: Colors.red,
+                          btnText: "Reject",
+                          onTap: () async {
+                            await OrderRepo.instance.rejectOrder(
+                                orderId: widget.order.orderId,
+                                orderEnum: OrderEnum.rejected);
+                          },
+                        )),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: LoaderButton(
+                            color: Colors.green,
+                            btnText: "Accept",
+                            onTap: () async {
+                              await OrderRepo.instance.acceptOrder(
+                                orderId: widget.order.orderId,
+                                orderEnum: OrderEnum.accepted,
+                              );
+                            })),
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ),
+          if (widget.order.orderEnum == OrderEnum.accepted)
+            StreamBuilder<RequestModel?>(
+                stream: RequestRepo.instance
+                    .checkIfOrderRequestExist(orderId: widget.order.orderId),
+                builder: (_, snapshot) {
+                  if (snapshot.hasData && snapshot.data != null) {
+                    final RequestModel requestModel = snapshot.data!;
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: LoaderButton(
+                              color: Colors.green,
+                              btnText: "View Your Request Offers",
+                              onTap: () async {
+                                push(
+                                    context,
+                                    ShopOffersListView(
+                                      orderModel: widget.order,
+                                      requestModel: requestModel,
+                                    ));
+                              }),
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: LoaderButton(
+                              color: Colors.green,
+                              btnText: "Send Request To Riders ",
+                              onTap: () async {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) => AddRequestPopup(
+                                          orderModel: widget.order,
+                                        ));
+                              }),
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    );
+                  }
+                }),
+        ],
       ),
     );
   }
 }
-
-
-// class _CreateProductPricePopupState extends State<CreateProductPricePopup> {
-//   final actualPriceController = TextEditingController();
-//   final priceController = TextEditingController();
-//   @override
-//   void initState() {
-//     super.initState();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     String? selectProductAvailability;
-
-//     List<String> productAvailableList = ['Available', 'Not Available'];
-//     return Padding(
-//       padding: const EdgeInsets.all(20.0),
-//       child: Center(
-//         child: SingleChildScrollView(
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               Card(
-//                 elevation: 6,
-//                 child: Padding(
-//                   padding:
-//                       const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
-//                   child: Column(
-//                     mainAxisSize: MainAxisSize.min,
-//                     children: [
-//                       Row(
-//                         children: [
-//                           Expanded(
-//                             child: Container(
-//                               height: 50,
-//                               padding: const EdgeInsets.only(right: 10),
-//                               decoration: BoxDecoration(
-//                                 borderRadius: BorderRadius.circular(10),
-//                                 color: textFieldColor,
-//                               ),
-//                               child: DropdownButtonFormField(
-//                                 elevation: 4,
-//                                 autofocus: false,
-//                                 decoration: const InputDecoration(
-//                                   contentPadding:
-//                                       EdgeInsets.only(top: 13, bottom: 0),
-//                                   border: InputBorder.none,
-//                                   prefixIcon: Icon(
-//                                     FontAwesomeIcons.typo3,
-//                                     color: greyColor,
-//                                     size: 15,
-//                                   ),
-//                                 ),
-//                                 hint: Text(
-//                                   'Select Category',
-//                                   style: Theme.of(context)
-//                                       .textTheme
-//                                       .titleSmall
-//                                       ?.copyWith(color: Colors.grey),
-//                                 ),
-//                                 style: Theme.of(context).textTheme.titleSmall,
-//                                 dropdownColor: textFieldColor,
-//                                 iconEnabledColor: primaryColor,
-//                                 isExpanded: true,
-//                                 value: selectProductAvailability,
-//                                 items: productAvailableList.map((value) {
-//                                   return DropdownMenuItem<String>(
-//                                     value: value,
-//                                     child: Padding(
-//                                       padding: const EdgeInsets.only(left: 10),
-//                                       child: Text(value),
-//                                     ),
-//                                     onTap: () {},
-//                                   );
-//                                 }).toList(),
-//                                 onChanged: (value) {
-//                                   setState(() {
-//                                     selectProductAvailability =
-//                                         value.toString();
-//                                   });
-//                                 },
-//                               ),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                       const SizedBox(
-//                         height: 10,
-//                       ),
-
-//                       Visibility(
-//                         visible: selectProductAvailability == 'Available',
-//                         child: )
-//                       Row(
-//                         children: [
-//                           Expanded(
-//                             child: CustomTextField(
-//                               labelText: 'Product price',
-//                               hintText: 'Product price',
-//                               controller: priceController,
-//                               maxLine: null,
-//                               inputType: TextInputType.number,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                       const SizedBox(height: 20),
-//                       SizedBox(
-//                         width: 300,
-//                         child: LoaderButton(
-//                           btnText: 'Send Product Price',
-//                           onTap: () async {
-//                             // try {
-//                             //   if (priceController.text.isEmpty) {
-//                             //     pop(context);
-//                             //     snack(context, 'Please enter product price',
-//                             //         info: false);
-
-//                             //     return;
-//                             //   }
-//                             //   OfferModel offerModel = OfferModel(
-//                             //       orderId: widget.requestModel.orderId,
-//                             //       docId: '',
-//                             //       createdAt:
-//                             //           DateTime.now().microsecondsSinceEpoch,
-//                             //       riderId:
-//                             //           context.read<UserState>().userModel.uid,
-//                             //       price: priceController.text,
-//                             //       reqId: widget.requestModel.docId,
-//                             //       isAccepted: false,
-//                             //       isRejected: false);
-//                             //   await OfferRepo.instance
-//                             //       .createOffer(widget.requestModel, offerModel);
-//                             //   if (!mounted) return;
-//                             //   pop(context);
-//                             //   snack(context, 'Offer send successfully');
-//                             // } catch (e) {
-//                             //   snack(context, e.toString());
-//                             //   return;
-//                             // }
-//                           },
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

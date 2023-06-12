@@ -50,6 +50,49 @@ class _WorkerRequestWidgetState extends State<WorkerRequestWidget> {
               ],
             ),
             const Divider(color: greyColor, indent: 28),
+            Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(width: 15),
+                  Row(
+                    children: [
+                      Text(
+                        'Product: ',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '${widget.requestModel.selectedCategory}',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Sub-Category: ',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '${widget.requestModel.selectedSubCategory}',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const Divider(color: greyColor, indent: 28),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

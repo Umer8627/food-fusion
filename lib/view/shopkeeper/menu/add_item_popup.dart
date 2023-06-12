@@ -30,14 +30,24 @@ class _AddItemPopupState extends State<AddItemPopup> {
   final formKey = GlobalKey<FormState>();
 
   List<String> defaultCategory = [
-    'Burger',
-    'Pizza',
-    'Pasta',
-    'Sandwich',
-    'Biryani',
-    'Chinese',
-    'BBQ',
+    'Biscuits',
+    'Cooking Oil',
+    'Milk Pack',
+    'Shamposs',
+    'Soaps',
   ];
+  Map<String, dynamic> categories = {
+    "Biscuits": ["Tuc", "Oreo", "Super", "Prime"],
+    "Cooking Oil": ["Dalda", "Sufi", "Soya Supreme", "Sundrop"],
+    "Milk Pack": [
+      "Milk Pack",
+      "Milk Pack Cream",
+      "Milk Pack Butter",
+      "Milk Pack Cheese"
+    ],
+    "Shamposs": ["Life Boy", "Panteen", "Clear", "Dove", "Sunsilk", "Pamolive"],
+    "Soaps": ["Lux", "Detol", "Safe Guard", "Dove", "Life Boy"]
+  };
 
   @override
   Widget build(BuildContext context) {

@@ -3,10 +3,10 @@ import 'package:geoflutterfire2/geoflutterfire2.dart';
 
 import '../models/user_model.dart';
 
-class RiderRepo{
+class RiderRepo {
   static final instance = RiderRepo();
 
-    Stream<List<UserModel>> getAllUsersByGeoPackage(
+  Stream<List<UserModel>> getAllUsersByGeoPackage(
       {required UserModel userModel, required int rad}) {
     final geo = GeoFlutterFire();
     final firestore = FirebaseFirestore.instance;

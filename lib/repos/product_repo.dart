@@ -54,6 +54,7 @@ class ProductRepo {
     return firestore
         .collection('productRequest')
         .where('userId', isEqualTo: uid)
+        .where('isApproved', isEqualTo: false)
         .snapshots()
         .map((event) => event.docs
             .map((e) => ProductRequestModel.fromMap(e.data()))
@@ -139,6 +140,8 @@ class ProductRepo {
         .collection('productRequest')
         .doc(requestModel.docId)
         .collection('offers')
+        .where('isAccepted', isEqualTo: false)
+        .where('isRejected', isEqualTo: false)
         .snapshots()
         .map((event) =>
             event.docs.map((e) => ShopOfferModel.fromMap(e.data())).toList());

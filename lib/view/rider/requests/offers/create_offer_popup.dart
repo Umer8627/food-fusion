@@ -1,14 +1,14 @@
-import 'package:easy_pick/models/offer_model.dart';
-import 'package:easy_pick/states/user_state.dart';
-import 'package:easy_pick/view/widgets/custom_textfield.dart';
-import 'package:easy_pick/view/widgets/loader_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
+import '../../../../models/offer_model.dart';
 import '../../../../models/request_model.dart';
 import '../../../../repos/offer_repo.dart';
+import '../../../../states/user_state.dart';
 import '../../../../utills/snippets.dart';
+import '../../../widgets/custom_textfield.dart';
+import '../../../widgets/loader_button.dart';
 
 class CreateOfferPopup extends StatefulWidget {
   final RequestModel requestModel;
@@ -24,8 +24,9 @@ class _CreateOfferPopupState extends State<CreateOfferPopup> {
   @override
   void initState() {
     super.initState();
-    priceController.text = '100';
     actualPriceController.text = widget.requestModel.price.toString();
+
+    priceController.text = '100';
   }
 
   @override

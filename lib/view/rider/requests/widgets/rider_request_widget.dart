@@ -1,18 +1,16 @@
 import 'dart:developer';
-
-import 'package:easy_pick/models/request_model.dart';
-import 'package:easy_pick/models/user_model.dart';
-import 'package:easy_pick/repos/request_repo.dart';
-import 'package:easy_pick/repos/user_repo.dart';
+import 'package:easy_pick/models/offer_model.dart';
 import 'package:easy_pick/utills/snippets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../../../constants/color_constant.dart';
-import '../../../../models/offer_model.dart';
+import '../../../../models/request_model.dart';
+import '../../../../models/user_model.dart';
 import '../../../../repos/offer_repo.dart';
+import '../../../../repos/request_repo.dart';
+import '../../../../repos/user_repo.dart';
 import '../../../widgets/loader_button.dart';
 import '../../../widgets/show_status_widget.dart';
 import '../offers/create_offer_popup.dart';
@@ -48,6 +46,7 @@ class _RiderRequestWidgetState extends State<RiderRequestWidget> {
 
       userModel = results[0];
       shopModel = results[0];
+      setState(() {});
     } catch (e) {
       print('getUserShopInfo: $e');
     }
