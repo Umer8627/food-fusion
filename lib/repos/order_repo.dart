@@ -84,7 +84,8 @@ class OrderRepo {
         .map((event) =>
             event.docs.map((e) => OrderModel.fromMap(e.data())).toList());
   }
-   Stream<List<OrderModel>> getShopRejectedOrders() {
+
+  Stream<List<OrderModel>> getShopRejectedOrders() {
     return firestore
         .collection("orders")
         .where("shopId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
@@ -173,6 +174,7 @@ class OrderRepo {
         .map((event) =>
             event.docs.map((e) => OrderModel.fromMap(e.data())).toList());
   }
+
   Stream<List<OrderModel>> getRiderPickedOrder() {
     return firestore
         .collection("orders")
