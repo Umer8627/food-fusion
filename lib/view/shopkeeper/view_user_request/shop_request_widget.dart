@@ -7,10 +7,8 @@ import 'package:easy_pick/view/shopkeeper/view_user_request/shop_create_offer_po
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
-
 import '../../../constants/color_constant.dart';
-import '../../../states/user_state.dart';
+
 import '../../../utills/snippets.dart';
 import '../../widgets/show_status_widget.dart';
 
@@ -71,7 +69,7 @@ class _WorkerRequestWidgetState extends State<WorkerRequestWidget> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Row(

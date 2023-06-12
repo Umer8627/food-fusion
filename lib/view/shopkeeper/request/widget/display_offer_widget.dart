@@ -6,7 +6,6 @@ import 'package:easy_pick/repos/offer_repo.dart';
 import 'package:easy_pick/repos/order_repo.dart';
 import 'package:easy_pick/utills/snippets.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../enums/order_enums.dart';
 import '../../../../models/request_model.dart';
